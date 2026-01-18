@@ -1,0 +1,27 @@
+{
+  "name": "@ruebenfox/liquefaction",
+  "version": "1.0.6",
+  "bin": {
+    "liq": "./bin/cli.js"
+  },
+  "description": "A Shopify native component library, to power reusable theme development and an accompanying Visual Studio Code Extension to interact with the library. ",
+  "main": "index.js",
+  "files": [
+    "components",
+    "registry.json",
+    "bin/cli.js",
+    "src/commands/add.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ruben Kai Fox",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^14.0.2",
+    "fs-extra": "^11.3.3"
+  }
+}

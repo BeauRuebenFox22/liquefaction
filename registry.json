@@ -1,0 +1,99 @@
+{
+  "lib-button": {
+    "type": "snippet-component",
+    "version": "1.0.0",
+    "description": "A customizable button component for web applications.",
+    "hash": "cb0d1185bea3947af8a36c2b4762928e",
+    "createdAt": "2024-06-20T12:00:00Z",
+    "updatedAt": [
+      "2024-06-20T12:00:00Z",
+      "2026-01-18T22:14:24.807Z"
+    ],
+    "props": [
+      {
+        "name": "_content",
+        "type": "string",
+        "required": true,
+        "description": "The text content displayed on the button.",
+        "placeholder": "Button text"
+      },
+      {
+        "name": "_classes",
+        "type": "string",
+        "description": "Tailwind Classes to style the button.",
+        "placeholder": "mt-4",
+        "required": false
+      },
+      {
+        "name": "_id",
+        "type": "string",
+        "description": "The unique identifier for the button element.",
+        "placeholder": "button-id",
+        "required": false
+      }
+    ],
+    "files": [
+      {
+        "src": "components/lib-button.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-button.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": []
+  },
+  "lib-carousel": {
+    "type": "snippet-component",
+    "version": "0.0.1",
+    "description": "liquid component scaffold",
+    "hash": "eea1d52f270761fac72805bfff1e5573",
+    "createdAt": "2026-01-18T21:27:19.433Z",
+    "updatedAt": [],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-carousel.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-carousel.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": []
+  },
+  "lib-slider": {
+    "type": "web-component",
+    "version": "0.0.1",
+    "description": "javascript component scaffold",
+    "hash": "774817c565fe42dab0aa3f268e5e9f49",
+    "createdAt": "2026-01-18T21:27:19.660Z",
+    "updatedAt": [],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-slider.js",
+        "destDir": "assets"
+      }
+    ],
+    "dependencies": []
+  },
+  "lib-sidebar": {
+    "type": "web-component",
+    "version": "0.0.1",
+    "description": "javascript component scaffold",
+    "hash": "a023c88765fc384ed3106de6397d6e5c",
+    "createdAt": "2026-01-18T21:36:03.088Z",
+    "updatedAt": [],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-sidebar.js",
+        "destDir": "assets"
+      }
+    ],
+    "dependencies": []
+  }
+}

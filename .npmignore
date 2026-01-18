@@ -1,0 +1,26 @@
+# Dev-only sources and scripts (defense-in-depth; note: package.json "files" already controls publish)
+dev/
+lib.cmd
+lib.ps1
+.vscode/
+.github/
+
+# Tests / examples (if added later)
+test/
+tests/
+__tests__/
+examples/
+
+# Build outputs
+coverage/
+dist/
+build/
+
+# Env / OS
+.env
+.env.*
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
