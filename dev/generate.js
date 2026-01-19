@@ -36,6 +36,29 @@ function askNamePrompt(message, defaultName) {
   });
 };
 
+function askAssetsPrompt(defaultChoice = 'none') {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  const promptText = [
+    'Select static assets to include:',
+    '  1) JavaScript only',
+    '  2) CSS only',
+    '  3) Both',
+    '  4) None',
+    'Enter choice (1-4): '
+  ].join('\n');
+  return new Promise((resolve) => {
+    rl.question(promptText, (answer) => {
+      rl.close();
+      const val = String(answer || '').trim().toLowerCase();
+      if (val === '1' || val === 'js' || val === 'javascript') return resolve('js');
+      if (val === '2' || val === 'css') return resolve('css');
+      if (val === '3' || val === 'both') return resolve('both');
+      if (val === '4' || val === 'none' || val === 'no') return resolve('none');
+      return resolve(defaultChoice);
+    });
+  });
+};
+
 async function componentExists(baseName, libName) {
   try {
     const dirPath = path.join(libRoot, 'components', baseName);
@@ -59,7 +82,7 @@ async function componentExists(baseName, libName) {
   };
 };
 
-async function scaffoldJavaScriptComponent(dir, libName) {
+async function scaffoldJavaScriptComponent(dir, libName, includeCSS) {
   await fs.ensureDir(dir);
   const jsPath = path.join(dir, `${libName}.js`);
   const content = `// ${libName}.js\n// TODO: add boilerplate Web Component implementation`;
@@ -69,29 +92,53 @@ async function scaffoldJavaScriptComponent(dir, libName) {
     await fs.writeFile(jsPath, content, 'utf8');
     console.log(`Created: ${jsPath}`);
   };
+  if (includeCSS) {
+    const cssPath = path.join(dir, `${libName}.css`);
+    if(!(await fs.pathExists(cssPath))) {
+      await fs.writeFile(cssPath, `/* ${libName}.css */`, 'utf8');
+      console.log(`Created: ${cssPath}`);
+    } else {
+      console.log(`Skipped: ${cssPath} already exists.`);
+    }
+  }
 };
 
-async function scaffoldLiquidComponent(dir, libName) {
+async function scaffoldLiquidComponent(dir, libName, includeJS, includeCSS) {
   await fs.ensureDir(dir);
   const liquidPath = path.join(dir, `${libName}.liquid`);
-  const cssPath = path.join(dir, `${libName}.css`);
-  const jsPath = path.join(dir, `${libName}.js`);
   const liquidContent = `{% comment %} ${libName}.liquid {% endcomment %}`;
-  const cssContent = `/* ${libName}.css */`;
-  const jsContent = `// ${libName}.js\n// TODO: add boilerplate for Liquid component behavior`;
-  for(const [p, c] of [
-    [liquidPath, liquidContent],
-    [cssPath, cssContent],
-    [jsPath, jsContent],
-  ]) {
-    if(await fs.pathExists(p)) {
-      console.log(`Skipped: ${p} already exists.`);
+  if(!(await fs.pathExists(liquidPath))) {
+    await fs.writeFile(liquidPath, liquidContent, 'utf8');
+    console.log(`Created: ${liquidPath}`);
+  } else {
+    console.log(`Skipped: ${liquidPath} already exists.`);
+  }
+  if(includeCSS) {
+    const cssPath = path.join(dir, `${libName}.css`);
+    if(!(await fs.pathExists(cssPath))) {
+      await fs.writeFile(cssPath, `/* ${libName}.css */`, 'utf8');
+      console.log(`Created: ${cssPath}`);
     } else {
-      await fs.writeFile(p, c, 'utf8');
-      console.log(`Created: ${p}`);
+      console.log(`Skipped: ${cssPath} already exists.`);
+    };
+  };
+  if(includeJS) {
+    const jsPath = path.join(dir, `${libName}.js`);
+    if(!(await fs.pathExists(jsPath))) {
+      await fs.writeFile(jsPath, `// ${libName}.js\n// TODO: add boilerplate for Liquid component behavior`, 'utf8');
+      console.log(`Created: ${jsPath}`);
+    } else {
+      console.log(`Skipped: ${jsPath} already exists.`);
     };
   };
 };
+
+async function writeManifest(dir, manifest) {
+  const filePath = path.join(dir, 'manifest.json');
+  await fs.writeJson(filePath, manifest, { spaces: 2 });
+  console.log(`Created: ${filePath}`);
+};
+
 
 module.exports = async function generateComponent(name, options = {}) {
   try {
@@ -120,12 +167,54 @@ module.exports = async function generateComponent(name, options = {}) {
       console.error('Invalid selection. Please choose 1 or 2.');
       process.exit(1);
     };
+    const assetChoice = await askAssetsPrompt(type === 'javascript' ? 'js' : 'none');
+    const includeJS = assetChoice === 'js' || assetChoice === 'both';
+    const includeCSS = assetChoice === 'css' || assetChoice === 'both' || (type === 'javascript' && assetChoice === 'css');
     console.log(`Generating ${type} component: ${libName}`);
     if(type === 'javascript') {
-      await scaffoldJavaScriptComponent(dir, libName);
+      await scaffoldJavaScriptComponent(dir, libName, includeCSS);
     } else {
-      await scaffoldLiquidComponent(dir, libName);
+      await scaffoldLiquidComponent(dir, libName, includeJS, includeCSS);
     };
+    // Compute initial hash of primary file for manifest & registry
+    const now = new Date().toISOString();
+    const primaryFileName = type === 'liquid' ? `${libName}.liquid` : `${libName}.js`;
+    const primaryFullPath = path.join(dir, primaryFileName);
+    const initialHash = await ops.generateHash(primaryFullPath);
+    const manifest = {
+      name: libName,
+      type: type === 'liquid' ? 'snippet-component' : 'web-component',
+      version: '0.0.1',
+      description: `${type} component scaffold`,
+      primary: {
+        path: primaryFileName,
+        hash: initialHash || ''
+      },
+      files: (type === 'liquid'
+        ? [
+            ...(includeCSS ? [{ src: `components/${libName}.css`, destDir: 'assets' }] : []),
+            { src: `components/${libName}.liquid`, destDir: 'snippets' }
+          ]
+        : [
+            { src: `components/${libName}.js`, destDir: 'assets' },
+            ...(includeCSS ? [{ src: `components/${libName}.css`, destDir: 'assets' }] : [])
+          ]
+      ),
+      assets: {
+        ...(includeCSS ? { css: [`${libName}.css`] } : {}),
+        ...(includeJS && type === 'liquid' ? { js: [`${libName}.js`] } : {})
+      },
+      props: [],
+      dependencies: [],
+      registry: {
+        createdAt: now,
+        hash: initialHash || ''
+      },
+      build: {
+        lastAuditAt: ''
+      }
+    };
+    await writeManifest(dir, manifest);
     // Update component registry
     try {
       await ops.addToComponentRegistry(libName, type, `${type} component scaffold`);

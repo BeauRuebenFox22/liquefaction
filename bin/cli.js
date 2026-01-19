@@ -4,6 +4,8 @@ const addAction = require('../src/commands/add');
 let generateComponentAction = null;
 let removeComponentAction = null;
 let buildAction = null;
+let manifestHashAction = null;
+let manifestCleanAction = null;
 try {
   // Dev-only: present in repo, excluded from npm package
   generateComponentAction = require('../dev/generate');
@@ -19,6 +21,16 @@ try {
   buildAction = require('../dev/build');
 } catch (_) {
   // Build command unavailable in published package
+}
+try {
+  manifestHashAction = require('../dev/manifest-hash');
+} catch (_) {
+  // Manifest hash command unavailable in published package
+}
+try {
+  manifestCleanAction = require('../dev/manifest-clean');
+} catch (_) {
+  // Manifest clean command unavailable in published package
 }
 
 program
@@ -57,6 +69,22 @@ program
       .command('build')
       .description('Audit components and sync registry hashes')
       .action(() => buildAction());
+  }
+
+  if (manifestHashAction) {
+    program
+      .command('manifest-hash [name]')
+      .description('Compute and write manifest + registry hash for a component')
+      .option('-a, --all', 'Process all components with a manifest')
+      .action((name, options) => manifestHashAction(name, options));
+  }
+
+  if (manifestCleanAction) {
+    program
+      .command('manifest-clean [name]')
+      .description('Remove unused keys from component manifest(s)')
+      .option('--dry-run', 'Preview changes without writing')
+      .action((name, options) => manifestCleanAction(name, options));
   }
 
 program.parse(process.argv);

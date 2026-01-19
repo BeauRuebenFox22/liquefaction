@@ -1,0 +1,39 @@
+{
+  "name": "lib-foxy-socks",
+  "type": "snippet-component",
+  "version": "0.0.1",
+  "description": "liquid component scaffold",
+  "primary": {
+    "path": "lib-foxy-socks.liquid",
+    "hash": ""
+  },
+  "files": [
+    {
+      "src": "components/lib-foxy-socks.css",
+      "destDir": "assets"
+    },
+    {
+      "src": "components/lib-foxy-socks.liquid",
+      "destDir": "snippets"
+    }
+  ],
+  "assets": {
+    "css": [
+      "lib-foxy-socks.css"
+    ],
+    "js": [
+      "lib-foxy-socks.js"
+    ]
+  },
+  "props": [],
+  "dependencies": [],
+  "registry": {
+    "createdAt": "2026-01-19T21:55:46.007Z",
+    "updatedAt": [],
+    "hash": ""
+  },
+  "build": {
+    "lastAuditAt": "",
+    "warnings": []
+  }
+}

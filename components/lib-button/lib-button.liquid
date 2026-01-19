@@ -1,23 +1,14 @@
-{% comment %}
- Static Assets
-{% endcomment %}
-<link rel="stylesheet" href="{{ 'lib-button.css' | asset_url }}"/>
-<script src="{{ 'lib-button.js' | asset_url }}" defer></script>
+{% comment %} 
+ lib-button.liquid
 
-{% comment %}
- Component Props
+ Props can be drawn from anythign with the _ prefix:
 {% endcomment %}
-{% liquid
-  assign class_name = 'iv-button'
-  capture slot
-    <span>{{ label }}</span>
-  endcapture
-%}
 
-{%- comment -%}
-  Component Markup
-  This is provided by the library and should not be modified.
-{%- endcomment -%}
-<button id="test" class="{{ class_name }}">
-  {{ slot }}
+<button 
+  id="{{ _button_id }}"  
+  class="{{ _button_class }}" 
+  type="{{ _button_type }}">
+  <span>
+    {{ _button_text }}
+  </span>
 </button>

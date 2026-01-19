@@ -119,6 +119,7 @@ async function updateComponentRegistry(name, updates) {
     entry.updatedAt.push(now);
     if(updates && typeof updates === 'object') {
       if(updates.hash) entry.hash = updates.hash;
+      if(updates.version) entry.version = updates.version;
       // Future: merge other fields (files, props, dependencies, version)
       // Future: Only publish components listed in registry
     };

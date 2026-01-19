@@ -16,7 +16,9 @@
     "access": "public"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:audit": "node ./bin/cli.js build",
+    "prepublishOnly": "npm run build:audit"
   },
   "author": "Ruben Kai Fox",
   "license": "ISC",
