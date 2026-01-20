@@ -27,3 +27,5 @@ node_modules/
 
 # Exclude per-component manifests from npm publish
 components/**/manifest.json
+
+templates/

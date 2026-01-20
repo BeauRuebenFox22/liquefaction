@@ -1,35 +1,35 @@
 {
-  "name": "lib-foxy-socks",
+  "name": "lib-slider",
   "type": "snippet-component",
   "version": "0.0.1",
   "description": "liquid component scaffold",
   "primary": {
-    "path": "lib-foxy-socks.liquid",
-    "hash": "d72aa6cfca6e9e9b563512ac06d93024"
+    "path": "lib-slider.liquid",
+    "hash": "5bcad273ae6f3eac0db5e0e8d0f5e0f0"
   },
   "files": [
     {
-      "src": "components/lib-foxy-socks.css",
+      "src": "components/lib-slider.css",
       "destDir": "assets"
     },
     {
-      "src": "components/lib-foxy-socks.liquid",
+      "src": "components/lib-slider.liquid",
       "destDir": "snippets"
     }
   ],
   "assets": {
     "css": [
-      "lib-foxy-socks.css"
+      "lib-slider.css"
     ],
     "js": [
-      "lib-foxy-socks.js"
+      "lib-slider.js"
     ]
   },
   "props": [],
   "dependencies": [],
   "registry": {
-    "createdAt": "2026-01-20T22:12:57.250Z",
-    "hash": "d72aa6cfca6e9e9b563512ac06d93024"
+    "createdAt": "2026-01-20T22:15:56.173Z",
+    "hash": "5bcad273ae6f3eac0db5e0e8d0f5e0f0"
   },
   "build": {
     "lastAuditAt": ""

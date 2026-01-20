@@ -4,6 +4,7 @@ const readline = require('readline');
 
 const libRoot = path.resolve(__dirname, '../');
 const ops = require('./ops');
+const { renderTemplate, toPascalCase } = require('./templates');
 
 function askTypePrompt() {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -82,55 +83,68 @@ async function componentExists(baseName, libName) {
   };
 };
 
-async function scaffoldJavaScriptComponent(dir, libName, includeCSS) {
+async function scaffoldJavaScriptComponent(dir, libName, baseName, includeCSS) {
   await fs.ensureDir(dir);
+  const tokens = {
+    LIB_NAME: libName,
+    KEBAB_NAME: baseName,
+    PASCAL_NAME: `Lib${toPascalCase(baseName)}`,
+  };
   const jsPath = path.join(dir, `${libName}.js`);
-  const content = `// ${libName}.js\n// TODO: add boilerplate Web Component implementation`;
-  if(await fs.pathExists(jsPath)) {
+  if (await fs.pathExists(jsPath)) {
     console.log(`Skipped: ${jsPath} already exists.`);
   } else {
-    await fs.writeFile(jsPath, content, 'utf8');
+    const tpl = await renderTemplate('web/primary.js', tokens);
+    await fs.writeFile(jsPath, tpl || `// ${libName}.js`, 'utf8');
     console.log(`Created: ${jsPath}`);
-  };
+  }
   if (includeCSS) {
     const cssPath = path.join(dir, `${libName}.css`);
-    if(!(await fs.pathExists(cssPath))) {
-      await fs.writeFile(cssPath, `/* ${libName}.css */`, 'utf8');
-      console.log(`Created: ${cssPath}`);
-    } else {
+    if (await fs.pathExists(cssPath)) {
       console.log(`Skipped: ${cssPath} already exists.`);
+    } else {
+      const tpl = await renderTemplate('web/style.css', tokens);
+      await fs.writeFile(cssPath, tpl || `/* ${libName}.css */`, 'utf8');
+      console.log(`Created: ${cssPath}`);
     }
   }
 };
 
-async function scaffoldLiquidComponent(dir, libName, includeJS, includeCSS) {
+async function scaffoldLiquidComponent(dir, libName, baseName, includeJS, includeCSS) {
   await fs.ensureDir(dir);
+  const tokens = {
+    LIB_NAME: libName,
+    KEBAB_NAME: baseName,
+    PASCAL_NAME: `Lib${toPascalCase(baseName)}`,
+  };
   const liquidPath = path.join(dir, `${libName}.liquid`);
-  const liquidContent = `{% comment %} ${libName}.liquid {% endcomment %}`;
-  if(!(await fs.pathExists(liquidPath))) {
-    await fs.writeFile(liquidPath, liquidContent, 'utf8');
-    console.log(`Created: ${liquidPath}`);
-  } else {
+  if (await fs.pathExists(liquidPath)) {
     console.log(`Skipped: ${liquidPath} already exists.`);
+  } else {
+    const tpl = await renderTemplate('liquid/primary.liquid', tokens);
+    await fs.writeFile(liquidPath, tpl || `{% comment %} ${libName}.liquid {% endcomment %}`, 'utf8');
+    console.log(`Created: ${liquidPath}`);
   }
-  if(includeCSS) {
+  if (includeCSS) {
     const cssPath = path.join(dir, `${libName}.css`);
-    if(!(await fs.pathExists(cssPath))) {
-      await fs.writeFile(cssPath, `/* ${libName}.css */`, 'utf8');
-      console.log(`Created: ${cssPath}`);
-    } else {
+    if (await fs.pathExists(cssPath)) {
       console.log(`Skipped: ${cssPath} already exists.`);
-    };
-  };
-  if(includeJS) {
-    const jsPath = path.join(dir, `${libName}.js`);
-    if(!(await fs.pathExists(jsPath))) {
-      await fs.writeFile(jsPath, `// ${libName}.js\n// TODO: add boilerplate for Liquid component behavior`, 'utf8');
-      console.log(`Created: ${jsPath}`);
     } else {
+      const tpl = await renderTemplate('liquid/style.css', tokens);
+      await fs.writeFile(cssPath, tpl || `/* ${libName}.css */`, 'utf8');
+      console.log(`Created: ${cssPath}`);
+    }
+  }
+  if (includeJS) {
+    const jsPath = path.join(dir, `${libName}.js`);
+    if (await fs.pathExists(jsPath)) {
       console.log(`Skipped: ${jsPath} already exists.`);
-    };
-  };
+    } else {
+      const tpl = await renderTemplate('liquid/behavior.js', tokens);
+      await fs.writeFile(jsPath, tpl || `// ${libName}.js`, 'utf8');
+      console.log(`Created: ${jsPath}`);
+    }
+  }
 };
 
 async function writeManifest(dir, manifest) {
@@ -172,9 +186,9 @@ module.exports = async function generateComponent(name, options = {}) {
     const includeCSS = assetChoice === 'css' || assetChoice === 'both' || (type === 'javascript' && assetChoice === 'css');
     console.log(`Generating ${type} component: ${libName}`);
     if(type === 'javascript') {
-      await scaffoldJavaScriptComponent(dir, libName, includeCSS);
+      await scaffoldJavaScriptComponent(dir, libName, baseName, includeCSS);
     } else {
-      await scaffoldLiquidComponent(dir, libName, includeJS, includeCSS);
+      await scaffoldLiquidComponent(dir, libName, baseName, includeJS, includeCSS);
     };
     // Compute initial hash of primary file for manifest & registry
     const now = new Date().toISOString();

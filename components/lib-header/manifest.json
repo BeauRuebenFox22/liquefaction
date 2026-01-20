@@ -1,0 +1,31 @@
+{
+  "name": "lib-header",
+  "type": "snippet-component",
+  "version": "0.0.1",
+  "description": "liquid component scaffold",
+  "primary": {
+    "path": "lib-header.liquid",
+    "hash": "9d5b7bc0b0fba1ff4fac8d2af700b0a9"
+  },
+  "files": [
+    {
+      "src": "components/lib-header.liquid",
+      "destDir": "snippets"
+    }
+  ],
+  "assets": {
+    "js": [
+      "lib-header.js"
+    ],
+    "css": []
+  },
+  "props": [],
+  "dependencies": [],
+  "registry": {
+    "createdAt": "2026-01-20T21:07:20.733Z",
+    "hash": "9d5b7bc0b0fba1ff4fac8d2af700b0a9"
+  },
+  "build": {
+    "lastAuditAt": ""
+  }
+}

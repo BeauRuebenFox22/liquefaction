@@ -1,1 +1,21 @@
-{% comment %} lib-foxy-socks.liquid {% endcomment %}
+{%- comment -%}
+Component: lib-foxy-socks
+Type: snippet-component
+
+Props (snake_case with leading underscore):
+- _foxy-socks_content: string (required)
+- _aria_label: string (optional)
+- _foxy-socks_id: string (optional)
+
+Dependencies (rendered children):
+- {% render 'lib-child', _child_content: '...' %}
+{%- endcomment -%}
+
+{%- assign __aria = _aria_label | default: _foxy-socks_content | default: 'LibFoxySocks component' -%}
+<div class="lib-foxy-socks" data-lib="foxy-socks" role="region" aria-label="{{ __aria }}">
+  {%- if _foxy-socks_content -%}
+    <div class="lib-foxy-socks__content">{{ _foxy-socks_content }}</div>
+  {%- else -%}
+    <div class="lib-foxy-socks__content lib-foxy-socks__content--empty" aria-hidden="true"><!-- empty --></div>
+  {%- endif -%}
+</div>

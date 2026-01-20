@@ -1,0 +1,21 @@
+{%- comment -%}
+Component: {{LIB_NAME}}
+Type: snippet-component
+
+Props (snake_case with leading underscore):
+- _{{KEBAB_NAME}}_content: string (required)
+- _aria_label: string (optional)
+- _{{KEBAB_NAME}}_id: string (optional)
+
+Dependencies (rendered children):
+- {% render 'lib-child', _child_content: '...' %}
+{%- endcomment -%}
+
+{%- assign __aria = _aria_label | default: _{{KEBAB_NAME}}_content | default: '{{PASCAL_NAME}} component' -%}
+<div class="lib-{{KEBAB_NAME}}" data-lib="{{KEBAB_NAME}}" role="region" aria-label="{{ __aria }}">
+  {%- if _{{KEBAB_NAME}}_content -%}
+    <div class="lib-{{KEBAB_NAME}}__content">{{ _{{KEBAB_NAME}}_content }}</div>
+  {%- else -%}
+    <div class="lib-{{KEBAB_NAME}}__content lib-{{KEBAB_NAME}}__content--empty" aria-hidden="true"><!-- empty --></div>
+  {%- endif -%}
+</div>

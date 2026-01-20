@@ -1,6 +1,6 @@
-// lib-lib-slider.js (optional behavior for Liquid components)
+// lib-{{LIB_NAME}}.js (optional behavior for Liquid components)
 (() => {
-  const selector = '.lib-slider[data-lib="slider"]';
+  const selector = '.lib-{{KEBAB_NAME}}[data-lib="{{KEBAB_NAME}}"]';
   document.querySelectorAll(selector).forEach((el) => {
     // Hook point for interactive behavior
     // Example: el.addEventListener('click', () => {});

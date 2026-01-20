@@ -22,5 +22,84 @@
       }
     ],
     "dependencies": []
+  },
+  "lib-footer": {
+    "type": "snippet-component",
+    "version": "0.0.1",
+    "description": "liquid component scaffold",
+    "hash": "",
+    "createdAt": "2026-01-19T23:15:09.162Z",
+    "updatedAt": [],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-footer.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-footer.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": []
+  },
+  "lib-header": {
+    "type": "snippet-component",
+    "version": "0.0.1",
+    "description": "liquid component scaffold",
+    "hash": "",
+    "createdAt": "2026-01-20T21:07:20.741Z",
+    "updatedAt": [
+      "2026-01-20T21:10:29.301Z",
+      "2026-01-20T21:23:03.239Z"
+    ],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-header.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": []
+  },
+  "lib-foxy-socks": {
+    "type": "snippet-component",
+    "version": "0.0.1",
+    "description": "liquid component scaffold",
+    "hash": "",
+    "createdAt": "2026-01-20T22:12:57.264Z",
+    "updatedAt": [],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-foxy-socks.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-foxy-socks.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": []
+  },
+  "lib-slider": {
+    "type": "snippet-component",
+    "version": "0.0.1",
+    "description": "liquid component scaffold",
+    "hash": "",
+    "createdAt": "2026-01-20T22:15:56.180Z",
+    "updatedAt": [],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-slider.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-slider.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": []
   }
 }

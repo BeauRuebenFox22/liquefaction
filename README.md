@@ -16,14 +16,57 @@ A small component library and CLI for managing reusable UI components (Liquid sn
 
 ## Commands
 - Public (published)
-  - `liq add <lib-name>`: Install a component into the current theme by copying files from the registry entries.
+  - `liq add <lib-name>`: Install a component into the current theme by copying files from the registry entries. This is accessed via the supporting extension. Seperate documentation pending for this. 
 - Dev-only (available in this repo; excluded from npm)
   - `liq generate component <name>`: Scaffold a new component (prompts for type and assets). Creates files and a manifest, and adds an entry to the registry.
   - `liq remove component <name>`: Remove a component directory and delete its registry entry (with confirmation).
   - `liq build`: Audit all components. Hashes primary files and enforces versioning rules (see Build Workflow).
   - `liq manifest-hash [name] --all`: Utility to recompute manifest and registry hash for one or all components (dev convenience).
+  - `liq asset add [name] -t <css|js>`: Add a static asset (CSS/JS) to a component. Prompts if `name` or `type` is omitted. Prevents duplicates and updates both manifest and registry.
+  - `liq asset remove [name] -t <css|js>`: Remove a static asset (CSS/JS) from a component. Prompts if `name` or `type` is omitted. Updates both manifest and registry.
 
 Tip: When working locally you can also run commands via Node: `node bin/cli.js <command>`.
+
+## Examples
+- Generate a Liquid component:
+
+```bash
+liq generate component lib-footer
+# or
+node bin/cli.js generate component lib-footer
+```
+
+- Add a CSS asset to a component (prompts if omitted):
+
+```bash
+liq asset add lib-footer -t css
+# or
+node bin/cli.js asset add lib-footer -t css
+```
+
+- Add a JS asset to a Liquid component:
+
+```bash
+liq asset add lib-footer -t js
+# or
+node bin/cli.js asset add lib-footer -t js
+```
+
+- Remove a CSS asset from a component:
+
+```bash
+liq asset remove lib-footer -t css
+# or
+node bin/cli.js asset remove lib-footer -t css
+```
+
+- Run build audit (version-aware hashing):
+
+```bash
+liq build
+# or
+node bin/cli.js build
+```
 
 ## Component Manifest
 Each component has a dev-only manifest stored at `components/lib-<name>/manifest.json`:
@@ -49,7 +92,7 @@ The `liq build` command computes the MD5 of each component’s primary file and 
   - Version lower than registry → Build fails (manifest version must not go backwards).
   - Version higher than registry → Build accepts the change, writes the new hash to the manifest (`primary.hash` and `registry.hash`) and updates `registry.json` version + hash.
 
-Authors should bump the manifest version whenever the primary file changes. After bumping, `liq build` will take care of the hashes and registry sync.
+Authors should bump the manifest version whenever the primary file changes. After bumping, `liq build` will take care of the hashes and registry sync. If a version that is lower than a previous iteration is added, build will be aborted. 
 
 ## Naming Rules
 - Library names always use the `lib-` prefix (e.g., `lib-button`).
@@ -62,5 +105,25 @@ Authors should bump the manifest version whenever the primary file changes. Afte
 ---
 
 Footnote: Static Assets
-- You can add/remove static assets (CSS/JS) by editing the component’s `manifest.json` `files` array and `assets` section to reflect the new files. Ensure the files live alongside the component folder. A command(s) may be introduced to streamline this. 
+
+- You can add/remove static assets (CSS/JS) via commands or by editing the component’s `manifest.json` `files` and `assets` sections to reflect new/removed files. Ensure the files live alongside the component folder.
+- Gotchas:
+  - For `web-component` types, a primary JS file already exists; adding/removing a separate JS asset is not applicable.
+  - Registry currently references flat paths like `components/lib-<name>.<ext>`; manifests live in `components/lib-<name>/`. Commands handle this mapping automatically.
+- Planned: hashing of static asset files to improve change detection and parity with primary-file hashing.
+- Planned: path normalization across registry and manifest so both can support nested component directories more uniformly.
+
 - A feature review is underway to optionally hash static asset files in addition to the primary file, to improve change detection beyond the primary artifact.
+
+Testing Environment: 
+- Thinking of expanding the currently used Liquid Parser, to enable a preview mode, adding rich pseudo data models (product, collection etc), or a pre-release flag, to test a component in situ. Current parser, extricates properties from Liquid file for adding to the manifest & registry. I feel JSON data models would be easier fo testing and speed to market. 
+
+## Working with Liquefaction
+1. Clone Repo from Git
+2. Run npm i 
+3. Run liq generate component <name> lib- prefix, if not added, is added for you, same for component removal. If added in error, the code will fix this automatically for you. Components will be gererated with boilerpalte, which act as guidlines and BP's. 
+4. Work on the components primary and static files, Liquid, CSS and JS, exactly like you were working in a Shopify theme. 
+5. Run either liq build or npm publish, as this uses a pre-publish hook, build will run wheather you want it to or not, however, the prefered work flow is to run build first, to audit the files. 
+5a. If you recieve errors or prompts, they will be accompanied by the offending files, address any bugs raised. Repeat point 5. 
+
+Highly advised to push code to Git once dev is complete. Though there is no src/dist pattern here, as there is no packaging / compilation happening. 

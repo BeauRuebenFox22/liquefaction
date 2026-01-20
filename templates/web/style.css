@@ -1,0 +1,3 @@
+/* lib-{{KEBAB_NAME}}.css */
+lib-{{KEBAB_NAME}} { display: block; }
+lib-{{KEBAB_NAME}} .lib-{{KEBAB_NAME}}__root { display: block; }

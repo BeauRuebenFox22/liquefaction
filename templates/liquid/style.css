@@ -1,0 +1,11 @@
+/* lib-{{KEBAB_NAME}}.css */
+.lib-{{KEBAB_NAME}} {
+  --lib-{{KEBAB_NAME}}-gap: 0.5rem;
+  display: block;
+}
+
+.lib-{{KEBAB_NAME}}__content {
+  margin-block: var(--lib-{{KEBAB_NAME}}-gap);
+}
+
+.lib-{{KEBAB_NAME}}__content--empty { opacity: 0.6; }

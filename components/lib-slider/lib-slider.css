@@ -1,0 +1,11 @@
+/* lib-slider.css */
+.lib-slider {
+  --lib-slider-gap: 0.5rem;
+  display: block;
+}
+
+.lib-slider__content {
+  margin-block: var(--lib-slider-gap);
+}
+
+.lib-slider__content--empty { opacity: 0.6; }

@@ -1,0 +1,21 @@
+{%- comment -%}
+Component: lib-slider
+Type: snippet-component
+
+Props (snake_case with leading underscore):
+- _slider_content: string (required)
+- _aria_label: string (optional)
+- _slider_id: string (optional)
+
+Dependencies (rendered children):
+- {% render 'lib-child', _child_content: '...' %}
+{%- endcomment -%}
+
+{%- assign __aria = _aria_label | default: _slider_content | default: 'LibSlider component' -%}
+<div class="lib-slider" data-lib="slider" role="region" aria-label="{{ __aria }}">
+  {%- if _slider_content -%}
+    <div class="lib-slider__content">{{ _slider_content }}</div>
+  {%- else -%}
+    <div class="lib-slider__content lib-slider__content--empty" aria-hidden="true"><!-- empty --></div>
+  {%- endif -%}
+</div>
