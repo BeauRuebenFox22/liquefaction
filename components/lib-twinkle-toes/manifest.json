@@ -1,0 +1,77 @@
+{
+  "name": "lib-twinkle-toes",
+  "type": "snippet-component",
+  "version": "0.0.3",
+  "description": "liquid component scaffold",
+  "primary": {
+    "path": "lib-twinkle-toes.liquid",
+    "hash": "18f353cda2bde594b9de749327796eaf"
+  },
+  "files": [
+    {
+      "src": "components/lib-twinkle-toes.css",
+      "destDir": "assets"
+    },
+    {
+      "src": "components/lib-twinkle-toes.liquid",
+      "destDir": "snippets"
+    }
+  ],
+  "assets": {
+    "css": [
+      "lib-twinkle-toes.css"
+    ],
+    "js": [
+      "lib-twinkle-toes.js"
+    ]
+  },
+  "props": [
+    {
+      "name": "_twinkle",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "_aria_label",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "_child_content",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "_empty",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "_test",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "_twinkle_toes_content",
+      "type": "string",
+      "required": true,
+      "description": ""
+    }
+  ],
+  "dependencies": [
+    "lib-child"
+  ],
+  "scope": [],
+  "registry": {
+    "createdAt": "2026-01-25T18:13:25.463Z",
+    "hash": "18f353cda2bde594b9de749327796eaf"
+  },
+  "build": {
+    "lastAuditAt": "2026-01-25T18:18:30.554Z"
+  }
+}

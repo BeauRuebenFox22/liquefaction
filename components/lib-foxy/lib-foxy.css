@@ -1,0 +1,11 @@
+/* lib-foxy.css */
+.lib-foxy {
+  --lib-foxy-gap: 0.5rem;
+  display: block;
+}
+
+.lib-foxy__content {
+  margin-block: var(--lib-foxy-gap);
+}
+
+.lib-foxy__content--empty { opacity: 0.6; }

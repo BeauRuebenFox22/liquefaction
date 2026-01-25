@@ -1,0 +1,11 @@
+/* lib-cheese.css */
+.lib-cheese {
+  --lib-cheese-gap: 0.5rem;
+  display: block;
+}
+
+.lib-cheese__content {
+  margin-block: var(--lib-cheese-gap);
+}
+
+.lib-cheese__content--empty { opacity: 0.6; }

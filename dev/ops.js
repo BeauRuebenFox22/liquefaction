@@ -92,7 +92,8 @@ async function addToComponentRegistry(name, type, description) {
     updatedAt: [],
     props: [],
     files,
-    dependencies: []
+    dependencies: [],
+    scope: []
   };
   await saveRegistryData(registryData);
   console.log(`Registry updated: added ${libName}`);
@@ -121,6 +122,9 @@ async function updateComponentRegistry(name, updates) {
       if(updates.hash) entry.hash = updates.hash;
       if(updates.version) entry.version = updates.version;
       if(Array.isArray(updates.files)) entry.files = updates.files;
+      if(Array.isArray(updates.props)) entry.props = updates.props;
+      if(Array.isArray(updates.dependencies)) entry.dependencies = updates.dependencies;
+      if(Array.isArray(updates.scope)) entry.scope = updates.scope;
       // Future: merge other fields (files, props, dependencies, version)
       // Future: Only publish components listed in registry
     };

@@ -1,0 +1,41 @@
+{%- comment -%}
+Component: lib-cheese
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _cheese_content: string (required)
+- _aria_label: string (optional)
+- _cheese_id: string (optional)
+
+Scope (theme contexts):
+- @scope= product, collection, search, cart
+
+Docs (inline prop descriptions):
+- @prop _cheese_content: Describe the main content
+- @prop _empty: Describe the main content when empty
+- @prop _test: An optional test flag
+{%- endcomment -%}
+
+{% assign _cheese_content = _cheese_content | default: '' %}
+{% assign test = 'Ignored?' %}
+{% assign _test = 'Optional flagging' %}
+
+{% render 'lib-header' %}
+{% render 'lib-footer' %}
+{% render 'lib-button', 
+  _button_id: 'cheese-button', 
+  _button_class: 'cheese-button-class', 
+  _button_type: 'button', 
+  _button_text: 'Cheese Button'
+%}
+<div class="lib-cheese" data-lib="cheese" role="region">
+  {%- if _cheese_content -%}
+    <div class="lib-cheese__content">
+      {{ _cheese_content }}
+    </div>
+  {%- else -%}
+    <div class="lib-cheese__content lib-cheese__content--empty" aria-hidden="true">
+      {{ _empty | default: 'empty' }}
+    </div>
+  {%- endif -%}
+</div>

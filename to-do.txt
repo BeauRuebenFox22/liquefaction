@@ -1,0 +1,6 @@
+1. Liquid Parser
+    a. Extract Props and Populate Props[]
+    b. Dependencies
+    c. Scope -> new manifest array, used for dynamic header injection, theme side
+2. Web Components Better Solution 
+3. Hashing / tracking static asset files

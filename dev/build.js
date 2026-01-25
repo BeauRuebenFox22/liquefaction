@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const ops = require('./ops');
+const { extractFromFile } = require('./liquid-extractor');
 
 const libRoot = path.resolve(__dirname, '../');
 const componentsDir = path.join(libRoot, 'components');
@@ -102,9 +103,26 @@ module.exports = async function buildAudit() {
             manifest.registry.hash = currentHash;
             manifest.build = manifest.build || {};
             manifest.build.lastAuditAt = new Date().toISOString();
+            // Extraction: only for Liquid components
+            if (manifest.type === 'snippet-component') {
+              try {
+                const { props, dependencies, scope } = await extractFromFile(primaryPath);
+                if (Array.isArray(props)) manifest.props = props;
+                if (Array.isArray(dependencies)) manifest.dependencies = dependencies;
+                if (Array.isArray(scope)) manifest.scope = scope;
+              } catch (e) {
+                console.warn(`Extraction skipped for ${libName}: ${e.message}`);
+              }
+            }
             await fs.writeJson(manifestPath, manifest, { spaces: 2 });
             if (entry) {
-              const ok = await ops.updateComponentRegistry(libName, { hash: currentHash, version: manifestVersion });
+              const updates = { hash: currentHash, version: manifestVersion };
+              if (manifest.type === 'snippet-component') {
+                updates.props = manifest.props || [];
+                updates.dependencies = manifest.dependencies || [];
+                updates.scope = manifest.scope || [];
+              }
+              const ok = await ops.updateComponentRegistry(libName, updates);
               if (ok) console.log(`Accepted version bump for ${libName}; updated registry to v${manifestVersion}.`);
             } else {
               console.log(`Component ${libName} not registered; skipping registry sync.`);

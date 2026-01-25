@@ -1,0 +1,42 @@
+{%- comment -%}
+Component: lib-foxy
+Type: snippet-component
+
+Props (snake_case with leading underscore):
+- _foxy_content: string (required)
+- _aria_label: string (optional)
+- _foxy_id: string (optional)
+
+Dependencies (rendered children):
+- {% render 'lib-child', _child_content: '...' %}
+
+Scope (theme contexts):
+- @scope= all
+
+Docs (inline prop descriptions):
+- @prop _empty: Describe the main content when empty.
+- @prop _test: Test for required flagging.
+
+{%- endcomment -%}
+
+{% assign _empty = 'Empty' | default: 'Empty' %}
+{% assign _test = 'Test for require flag' %}
+{% assign _agile = 'Test for require flag' | default: 'Test for require flag' %}
+{% assign test = 'Test for ommision in build' %}
+
+<div class="lib-foxy" data-lib="foxy" role="region">
+  {% render 'lib-button' %}
+  {% render 'lib-button' %}
+  {%- if _foxy_content -%}
+    <div class="lib-foxy__content">
+      {{ _foxy_content }}
+    </div>
+  {%- else -%}
+    <div class="lib-foxy__content lib-foxy__content--empty" aria-hidden="true">
+      {{ _empty }}
+    </div>
+  {%- endif -%}
+  {% render 'lib-footer'
+    _footer_text: 'This is the footer text'
+  %}
+</div>

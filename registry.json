@@ -1,16 +1,24 @@
 {
   "lib-button": {
     "type": "snippet-component",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "liquid component scaffold",
-    "hash": "9a5ca790e3db0cee6561f8e2c7268d4f",
+    "hash": "20d21a698c954f5d613f96bcda12a9e8",
     "createdAt": "2026-01-19T22:51:34.021Z",
     "updatedAt": [
       "2026-01-19T22:54:44.025Z",
       "2026-01-19T22:55:46.777Z",
-      "2026-01-19T22:56:49.230Z"
+      "2026-01-19T22:56:49.230Z",
+      "2026-01-25T17:59:55.944Z"
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "_button_text",
+        "type": "string",
+        "required": false,
+        "description": ""
+      }
+    ],
     "files": [
       {
         "src": "components/lib-button.css",
@@ -21,15 +29,18 @@
         "destDir": "snippets"
       }
     ],
-    "dependencies": []
+    "dependencies": [],
+    "scope": []
   },
   "lib-footer": {
     "type": "snippet-component",
     "version": "0.0.1",
     "description": "liquid component scaffold",
-    "hash": "",
+    "hash": "6ec74860565455844b1f3c46a28f4bad",
     "createdAt": "2026-01-19T23:15:09.162Z",
-    "updatedAt": [],
+    "updatedAt": [
+      "2026-01-25T17:58:24.356Z"
+    ],
     "props": [],
     "files": [
       {
@@ -47,11 +58,12 @@
     "type": "snippet-component",
     "version": "0.0.1",
     "description": "liquid component scaffold",
-    "hash": "",
+    "hash": "9d5b7bc0b0fba1ff4fac8d2af700b0a9",
     "createdAt": "2026-01-20T21:07:20.741Z",
     "updatedAt": [
       "2026-01-20T21:10:29.301Z",
-      "2026-01-20T21:23:03.239Z"
+      "2026-01-20T21:23:03.239Z",
+      "2026-01-25T17:58:24.370Z"
     ],
     "props": [],
     "files": [
@@ -66,9 +78,11 @@
     "type": "snippet-component",
     "version": "0.0.1",
     "description": "liquid component scaffold",
-    "hash": "",
+    "hash": "d72aa6cfca6e9e9b563512ac06d93024",
     "createdAt": "2026-01-20T22:12:57.264Z",
-    "updatedAt": [],
+    "updatedAt": [
+      "2026-01-25T17:58:24.365Z"
+    ],
     "props": [],
     "files": [
       {
@@ -86,9 +100,11 @@
     "type": "snippet-component",
     "version": "0.0.1",
     "description": "liquid component scaffold",
-    "hash": "",
+    "hash": "5bcad273ae6f3eac0db5e0e8d0f5e0f0",
     "createdAt": "2026-01-20T22:15:56.180Z",
-    "updatedAt": [],
+    "updatedAt": [
+      "2026-01-25T17:58:24.377Z"
+    ],
     "props": [],
     "files": [
       {
@@ -101,5 +117,239 @@
       }
     ],
     "dependencies": []
+  },
+  "lib-ruben": {
+    "type": "snippet-component",
+    "version": "0.1.0",
+    "description": "liquid component scaffold",
+    "hash": "7ed112c4b6c0d88c87212702e980a15b",
+    "createdAt": "2026-01-25T17:50:06.871Z",
+    "updatedAt": [
+      "2026-01-25T17:59:55.957Z"
+    ],
+    "props": [
+      {
+        "name": "_ruben_content",
+        "type": "string",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "_aria_label",
+        "type": "string",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "_ruben_id",
+        "type": "string",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "_child_content",
+        "type": "string",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "_twinkle_toes",
+        "type": "string",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "_empty_content",
+        "type": "string",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "_content",
+        "type": "string",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "files": [
+      {
+        "src": "components/lib-ruben.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-ruben.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": [
+      "lib-child",
+      "lib-header",
+      "lib-footer"
+    ],
+    "scope": []
+  },
+  "lib-twinkle-toes": {
+    "type": "snippet-component",
+    "version": "0.0.3",
+    "description": "liquid component scaffold",
+    "hash": "18f353cda2bde594b9de749327796eaf",
+    "createdAt": "2026-01-25T18:13:25.469Z",
+    "updatedAt": [
+      "2026-01-25T18:17:28.511Z",
+      "2026-01-25T18:18:30.562Z"
+    ],
+    "props": [
+      {
+        "name": "_twinkle",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "_aria_label",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "_child_content",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "_empty",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "_test",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "_twinkle_toes_content",
+        "type": "string",
+        "required": true,
+        "description": ""
+      }
+    ],
+    "files": [
+      {
+        "src": "components/lib-twinkle-toes.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-twinkle-toes.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": [
+      "lib-child"
+    ],
+    "scope": []
+  },
+  "lib-foxy": {
+    "type": "snippet-component",
+    "version": "0.2.0",
+    "description": "liquid component scaffold",
+    "hash": "bc70a7328ae225b23c73b34fd1150e77",
+    "createdAt": "2026-01-25T18:27:58.733Z",
+    "updatedAt": [
+      "2026-01-25T18:32:54.460Z",
+      "2026-01-25T18:40:05.408Z"
+    ],
+    "props": [
+      {
+        "name": "_foxy_content",
+        "type": "string",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "_empty",
+        "type": "string",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "_test",
+        "type": "string",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "files": [
+      {
+        "src": "components/lib-foxy.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-foxy.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": [
+      "lib-child",
+      "lib-button",
+      "lib-footer"
+    ],
+    "scope": []
+  },
+  "lib-cheese": {
+    "type": "snippet-component",
+    "version": "0.0.4",
+    "description": "liquid component scaffold",
+    "hash": "286109dce25694df8426efcbcedebba4",
+    "createdAt": "2026-01-25T19:01:19.441Z",
+    "updatedAt": [
+      "2026-01-25T19:04:27.948Z",
+      "2026-01-25T19:06:52.130Z",
+      "2026-01-25T19:11:23.682Z"
+    ],
+    "props": [
+      {
+        "name": "_cheese_content",
+        "type": "string",
+        "required": true,
+        "description": "Describe the main content"
+      },
+      {
+        "name": "_empty",
+        "type": "string",
+        "required": true,
+        "description": "Describe the main content when empty",
+        "placeholder": "empty"
+      },
+      {
+        "name": "_test",
+        "type": "string",
+        "required": false,
+        "description": "An optional test flag"
+      }
+    ],
+    "files": [
+      {
+        "src": "components/lib-cheese.css",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-cheese.liquid",
+        "destDir": "snippets"
+      }
+    ],
+    "dependencies": [
+      "lib-header",
+      "lib-footer",
+      "lib-button"
+    ],
+    "scope": [
+      "product",
+      "collection",
+      "search",
+      "cart"
+    ]
   }
 }

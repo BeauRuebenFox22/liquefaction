@@ -1,0 +1,11 @@
+/* lib-ruben.css */
+.lib-ruben {
+  --lib-ruben-gap: 0.5rem;
+  display: block;
+}
+
+.lib-ruben__content {
+  margin-block: var(--lib-ruben-gap);
+}
+
+.lib-ruben__content--empty { opacity: 0.6; }

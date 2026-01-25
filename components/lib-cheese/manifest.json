@@ -1,0 +1,67 @@
+{
+  "name": "lib-cheese",
+  "type": "snippet-component",
+  "version": "0.0.4",
+  "description": "liquid component scaffold",
+  "primary": {
+    "path": "lib-cheese.liquid",
+    "hash": "286109dce25694df8426efcbcedebba4"
+  },
+  "files": [
+    {
+      "src": "components/lib-cheese.css",
+      "destDir": "assets"
+    },
+    {
+      "src": "components/lib-cheese.liquid",
+      "destDir": "snippets"
+    }
+  ],
+  "assets": {
+    "css": [
+      "lib-cheese.css"
+    ],
+    "js": [
+      "lib-cheese.js"
+    ]
+  },
+  "props": [
+    {
+      "name": "_cheese_content",
+      "type": "string",
+      "required": true,
+      "description": "Describe the main content"
+    },
+    {
+      "name": "_empty",
+      "type": "string",
+      "required": true,
+      "description": "Describe the main content when empty",
+      "placeholder": "empty"
+    },
+    {
+      "name": "_test",
+      "type": "string",
+      "required": false,
+      "description": "An optional test flag"
+    }
+  ],
+  "dependencies": [
+    "lib-header",
+    "lib-footer",
+    "lib-button"
+  ],
+  "scope": [
+    "product",
+    "collection",
+    "search",
+    "cart"
+  ],
+  "registry": {
+    "createdAt": "2026-01-25T19:01:19.434Z",
+    "hash": "286109dce25694df8426efcbcedebba4"
+  },
+  "build": {
+    "lastAuditAt": "2026-01-25T19:11:23.674Z"
+  }
+}

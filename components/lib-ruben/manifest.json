@@ -1,0 +1,85 @@
+{
+  "name": "lib-ruben",
+  "type": "snippet-component",
+  "version": "0.1.0",
+  "description": "liquid component scaffold",
+  "primary": {
+    "path": "lib-ruben.liquid",
+    "hash": "7ed112c4b6c0d88c87212702e980a15b"
+  },
+  "files": [
+    {
+      "src": "components/lib-ruben.css",
+      "destDir": "assets"
+    },
+    {
+      "src": "components/lib-ruben.liquid",
+      "destDir": "snippets"
+    }
+  ],
+  "assets": {
+    "css": [
+      "lib-ruben.css"
+    ],
+    "js": [
+      "lib-ruben.js"
+    ]
+  },
+  "props": [
+    {
+      "name": "_ruben_content",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "_aria_label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "_ruben_id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "_child_content",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "_twinkle_toes",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "_empty_content",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "_content",
+      "type": "string",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "dependencies": [
+    "lib-child",
+    "lib-header",
+    "lib-footer"
+  ],
+  "scope": [],
+  "registry": {
+    "createdAt": "2026-01-25T17:50:06.865Z",
+    "hash": "7ed112c4b6c0d88c87212702e980a15b"
+  },
+  "build": {
+    "lastAuditAt": "2026-01-25T17:59:55.952Z"
+  }
+}

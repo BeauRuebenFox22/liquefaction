@@ -1,4 +1,5 @@
 // lib-{{LIB_NAME}}.js (no Shadow DOM)
+// @scope= product, collection
 export class {{PASCAL_NAME}} extends HTMLElement {
   static get is() { return '{{LIB_NAME}}'; }
   static get observedAttributes() { return ['aria-label']; }

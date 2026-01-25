@@ -12,6 +12,15 @@ function toPascalCase(str) {
     .join('');
 }
 
+function toSnakeCase(str) {
+  return String(str || '')
+    .trim()
+    .replace(/[^a-zA-Z0-9]+/g, '_')
+    .replace(/_{2,}/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .toLowerCase();
+}
+
 async function renderTemplate(relPath, tokens) {
   const filePath = path.join(templatesDir, relPath);
   const exists = await fs.pathExists(filePath);
@@ -29,4 +38,5 @@ module.exports = {
   templatesDir,
   renderTemplate,
   toPascalCase,
+  toSnakeCase,
 };

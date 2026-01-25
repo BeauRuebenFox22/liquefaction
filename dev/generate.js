@@ -89,6 +89,7 @@ async function scaffoldJavaScriptComponent(dir, libName, baseName, includeCSS) {
     LIB_NAME: libName,
     KEBAB_NAME: baseName,
     PASCAL_NAME: `Lib${toPascalCase(baseName)}`,
+    SNAKE_NAME: require('./templates').toSnakeCase(baseName),
   };
   const jsPath = path.join(dir, `${libName}.js`);
   if (await fs.pathExists(jsPath)) {
@@ -116,6 +117,7 @@ async function scaffoldLiquidComponent(dir, libName, baseName, includeJS, includ
     LIB_NAME: libName,
     KEBAB_NAME: baseName,
     PASCAL_NAME: `Lib${toPascalCase(baseName)}`,
+    SNAKE_NAME: require('./templates').toSnakeCase(baseName),
   };
   const liquidPath = path.join(dir, `${libName}.liquid`);
   if (await fs.pathExists(liquidPath)) {
@@ -220,6 +222,7 @@ module.exports = async function generateComponent(name, options = {}) {
       },
       props: [],
       dependencies: [],
+      scope: [],
       registry: {
         createdAt: now,
         hash: initialHash || ''

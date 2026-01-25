@@ -1,0 +1,36 @@
+{%- comment -%}
+Component: lib-ruben
+Type: snippet-component
+
+Props (snake_case with leading underscore):
+- _ruben_content: string (required)
+- _aria_label: string (optional)
+- _ruben_id: string (optional)
+
+Dependencies (rendered children):
+- {% render 'lib-child', _child_content: '...' %}
+
+Scope (theme contexts):
+- @scope= all
+- @prop _twinkle_toes: Exposes Fallback for no reason
+- @prop foxy_socks: Exposes No Socks for no reason
+- @prop _empty_content: Exposes Nothing to see here, move along for no reason
+- @prop _content: Exposes content for no reason
+{%- endcomment -%}
+
+{% assign _twinkle_toes = 'Test' | default: 'Fallback' %}
+{% assign foxy_socks = 'Socks' | default: 'No Socks' %}
+{% assign _empty_content = 'Nothing to see here, move along' %}
+
+<div class="lib-ruben" data-lib="ruben" role="region" aria-label="{{ __aria }}">
+  {%- if _content -%}
+    <div class="lib-ruben__content">
+      {{ _content }}
+    </div>
+  {%- else -%}
+    <div class="lib-ruben__content lib-ruben__content--empty" aria-hidden="true">
+      {% render 'lib-header' %}
+      {% render 'lib-footer' %}
+    </div>
+  {%- endif -%}
+</div>

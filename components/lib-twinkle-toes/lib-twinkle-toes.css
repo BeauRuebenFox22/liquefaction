@@ -1,0 +1,11 @@
+/* lib-twinkle-toes.css */
+.lib-twinkle-toes {
+  --lib-twinkle-toes-gap: 0.5rem;
+  display: block;
+}
+
+.lib-twinkle-toes__content {
+  margin-block: var(--lib-twinkle-toes-gap);
+}
+
+.lib-twinkle-toes__content--empty { opacity: 0.6; }

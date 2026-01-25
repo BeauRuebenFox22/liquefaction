@@ -1,0 +1,31 @@
+{%- comment -%}
+Component: lib-twinkle-toes
+Type: snippet-component
+
+Props (snake_case with leading underscore):
+- _twinkle-toes_content: string (required)
+- _aria_label: string (optional)
+- _twinkle-toes_id: string (optional)
+
+Dependencies (rendered children):
+- {% render 'lib-child', _child_content: '...' %}
+
+Scope (theme contexts):
+- @scope= all
+{%- endcomment -%}
+
+{% assign _empty = 'Nothing to see here.' | default: 'Nothing to see here.' %}
+{% assign _test = 'With no default, I should not be required' %}
+{% assign loaded = 'Everything to see here.' %}
+
+<div class="lib-twinkle-toes" data-lib="twinkle-toes" role="region" aria-label="{{ __aria }}">
+  {%- if _twinkle_toes_content -%}
+    <div class="lib-twinkle-toes__content">
+      {{ loaded }}
+    </div>
+  {%- else -%}
+    <div class="lib-twinkle-toes__content lib-twinkle-toes__content--empty" aria-hidden="true">
+      {{ _empty }}
+    </div>
+  {%- endif -%}
+</div>

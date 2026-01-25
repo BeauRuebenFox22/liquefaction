@@ -1,0 +1,61 @@
+{
+  "name": "lib-foxy",
+  "type": "snippet-component",
+  "version": "0.2.0",
+  "description": "liquid component scaffold",
+  "primary": {
+    "path": "lib-foxy.liquid",
+    "hash": "bc70a7328ae225b23c73b34fd1150e77"
+  },
+  "files": [
+    {
+      "src": "components/lib-foxy.css",
+      "destDir": "assets"
+    },
+    {
+      "src": "components/lib-foxy.liquid",
+      "destDir": "snippets"
+    }
+  ],
+  "assets": {
+    "css": [
+      "lib-foxy.css"
+    ],
+    "js": [
+      "lib-foxy.js"
+    ]
+  },
+  "props": [
+    {
+      "name": "_foxy_content",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "_empty",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "_test",
+      "type": "string",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "dependencies": [
+    "lib-child",
+    "lib-button",
+    "lib-footer"
+  ],
+  "scope": [],
+  "registry": {
+    "createdAt": "2026-01-25T18:27:58.726Z",
+    "hash": "bc70a7328ae225b23c73b34fd1150e77"
+  },
+  "build": {
+    "lastAuditAt": "2026-01-25T18:40:05.399Z"
+  }
+}

@@ -2,19 +2,23 @@
 Component: {{LIB_NAME}}
 Type: snippet-component
 
-Props (snake_case with leading underscore):
-- _{{KEBAB_NAME}}_content: string (required)
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _{{SNAKE_NAME}}_content: string (required)
 - _aria_label: string (optional)
-- _{{KEBAB_NAME}}_id: string (optional)
+- _{{SNAKE_NAME}}_id: string (optional)
 
-Dependencies (rendered children):
-- {% render 'lib-child', _child_content: '...' %}
+Scope (theme contexts):
+- @scope= product, collection
+
+Docs (inline prop descriptions):
+- @prop _{{SNAKE_NAME}}_content: Describe the main content
+- @prop _aria_label: Accessible label text
 {%- endcomment -%}
 
-{%- assign __aria = _aria_label | default: _{{KEBAB_NAME}}_content | default: '{{PASCAL_NAME}} component' -%}
+{%- assign __aria = _aria_label | default: _{{SNAKE_NAME}}_content | default: '{{PASCAL_NAME}} component' -%}
 <div class="lib-{{KEBAB_NAME}}" data-lib="{{KEBAB_NAME}}" role="region" aria-label="{{ __aria }}">
-  {%- if _{{KEBAB_NAME}}_content -%}
-    <div class="lib-{{KEBAB_NAME}}__content">{{ _{{KEBAB_NAME}}_content }}</div>
+  {%- if _{{SNAKE_NAME}}_content -%}
+    <div class="lib-{{KEBAB_NAME}}__content">{{ _{{SNAKE_NAME}}_content }}</div>
   {%- else -%}
     <div class="lib-{{KEBAB_NAME}}__content lib-{{KEBAB_NAME}}__content--empty" aria-hidden="true"><!-- empty --></div>
   {%- endif -%}

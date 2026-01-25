@@ -1,11 +1,11 @@
 {
   "name": "lib-button",
   "type": "snippet-component",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "liquid component scaffold",
   "primary": {
     "path": "lib-button.liquid",
-    "hash": "9a5ca790e3db0cee6561f8e2c7268d4f"
+    "hash": "20d21a698c954f5d613f96bcda12a9e8"
   },
   "files": [
     {
@@ -25,13 +25,21 @@
       "lib-button.js"
     ]
   },
-  "props": [],
+  "props": [
+    {
+      "name": "_button_text",
+      "type": "string",
+      "required": false,
+      "description": ""
+    }
+  ],
   "dependencies": [],
   "registry": {
     "createdAt": "2026-01-19T22:51:34.014Z",
-    "hash": "9a5ca790e3db0cee6561f8e2c7268d4f"
+    "hash": "20d21a698c954f5d613f96bcda12a9e8"
   },
   "build": {
-    "lastAuditAt": "2026-01-19T22:56:49.225Z"
-  }
+    "lastAuditAt": "2026-01-25T17:59:55.937Z"
+  },
+  "scope": []
 }
