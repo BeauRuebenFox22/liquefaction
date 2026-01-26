@@ -29,3 +29,5 @@ node_modules/
 components/**/manifest.json
 
 templates/
+
+backend/
