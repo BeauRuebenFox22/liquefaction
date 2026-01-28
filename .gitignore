@@ -9,7 +9,6 @@ yarn-error.log*
 
 # Output / coverage
 coverage/
-dist/
 build/
 *.log
 *.tgz
