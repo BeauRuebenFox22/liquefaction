@@ -117,9 +117,9 @@ if(manifestCleanAction) {
 
 if(serveAction) {
   program
-    .command('serve [components]')
+    .command('serve [components] [context]')
     .description('Start the local dev server for component preview')
-    .action(() => serveAction());
+    .action((components, context) => serveAction(components, context));
 };
-
+  
 program.parse(process.argv);

@@ -25,8 +25,11 @@ Docs (inline prop descriptions):
 {% assign test = 'Test for ommision in build' %}
 
 <div class="lib-foxy" data-lib="foxy" role="region">
-  {% render 'lib-button' %}
-  {% render 'lib-button' %}
+  {% render 'lib-button',
+    _button_class: "bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-lg",
+    _button_id: "button-id-1",
+    _button_text: "Click Me Bitch"
+  %}
   {%- if _foxy_content -%}
     <div class="lib-foxy__content">
       {{ _foxy_content }}
@@ -36,7 +39,7 @@ Docs (inline prop descriptions):
       {{ _empty }}
     </div>
   {%- endif -%}
-  {% render 'lib-footer'
+  {% render 'lib-footer',
     _footer_text: 'This is the footer text'
   %}
 </div>

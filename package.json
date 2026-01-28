@@ -16,18 +16,23 @@
     "access": "public"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build:audit": "node ./bin/cli.js build",
-    "prepublishOnly": "npm run build:audit"
+    "prepublishOnly": "npm run build:audit",
+    "tailwind": "npx @tailwindcss/cli -i ./backend/src/input.css -o ./backend/dist/output.css --minify --watch"
   },
   "author": "Ruben Kai Fox",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
     "browser-sync": "^3.0.4",
     "commander": "^14.0.2",
     "express": "^5.2.1",
     "fs-extra": "^11.3.3",
     "liquidjs": "^10.24.0",
     "open": "^11.0.0"
+  },
+  "devDependencies": {
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
   }
 }

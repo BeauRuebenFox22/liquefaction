@@ -4,24 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Component Preview</title>
-  <link rel="stylesheet" href="/components/lib-button/lib-button.css">
+  <link rel="stylesheet" href="/dist/output.css">
+  <link rel="stylesheet" href="/components/lib-foxy.css">
 </head>
-
 <body>
-  <h1>Component Preview: lib-button</h1>
-  <!-- Render the component's Liquid template -->
-  {% render "lib-button/lib-button.liquid",
-    _button_text: "Hello Foxy Socks!",
-    _button_id: "btn-123",
-    _button_class: "primary-button",
-    _button_type: "button"
-  %}
-
-  <!-- Example: Link to a component's JS asset (if needed) -->
-  <script src="/components/lib-button/lib-button.js"></script>
-  <script id="__bs_script__">document.write("<script async src=\"/browser-sync/browser-sync-client.js\"></script>");</script>
-
-  <!-- Output sample data (for debugging) -->
-  <pre>{{ product | json }}</pre>
+  <h1>Component Preview: lib-foxy</h1>
+  {% render "lib-foxy",
+      _foxy_content: "_foxy_content",
+      _empty: "_empty",
+      _test: "_test" %}
+  
+  <script id="__bs_script__">document.write("<script async src='/browser-sync/browser-sync-client.js'><\/script>");</script>
 </body>
 </html>

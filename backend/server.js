@@ -10,24 +10,38 @@ let open;
 })();
 
 const app = express();
+
 const engine = new Liquid({
   root: [
-    path.resolve(__dirname, './'),
+    path.resolve(__dirname),
     path.resolve(__dirname, '../components')
-  ], 
-  extname: '.liquid'
+  ],
+  extname: '.liquid',
+  fs: {
+    readFileSync: (file) => fs.readFileSync(file, 'utf8'),
+    existsSync: (file) => fs.existsSync(file),
+    exists: (file) => Promise.resolve(fs.existsSync(file)),
+    readFile: (file) => Promise.resolve(fs.readFileSync(file, 'utf8')),
+    resolve: (root, file, ext) => {
+      if(!file.includes('/') && !file.includes('.')) return path.resolve(__dirname, `../components/${file}/${file}.liquid`);
+      const resolvedPath = path.resolve(root, file + (file.includes('.') ? '' : ext));
+      return resolvedPath;
+    }
+  }
 });
 
 // Serve static assets
 app.use('/components', express.static(path.resolve(__dirname, '../components')));
+app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 // Load sample data
-const dataPath = path.resolve(__dirname, '../data/product.json');
+const context = process.env.CONTEXT; 
+const dataPath = path.resolve(__dirname, `../data/${context}.json`);
 const sampleData = fs.existsSync(dataPath) ? require(dataPath) : {};
 
 // Render index.liquid
 app.get('/', async (req, res) => {
-  let html = await engine.renderFile('index', sampleData);
+  let html = await engine.renderFile('index.liquid', sampleData);
   html = html.replace('</body>', '<script id="__bs_script__">document.write("<script async src=\"/browser-sync/browser-sync-client.js\"></script>");</script></body>');
   res.send(html);
 });
@@ -35,6 +49,20 @@ app.get('/', async (req, res) => {
 // Start server
 const PORT = 3000;
 const BS_PORT = 3001;
+
+const { spawn } = require('child_process');
+const tailwind = spawn('npx', [
+  'tailwindcss',
+  '-i', './src/input.css',
+  '-o', './dist/output.css',
+  '--watch'
+], { 
+  shell: true,
+  cwd: __dirname 
+});
+
+tailwind.stdout.on('data', (data) => console.log(`[Tailwind]: ${data}`));
+
 app.listen(PORT, () => {
   const url = `http://localhost:${PORT}`;
   const bsUrl = `http://localhost:${BS_PORT}`;
