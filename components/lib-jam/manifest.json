@@ -1,0 +1,38 @@
+{
+  "name": "lib-jam",
+  "type": "snippet-component",
+  "version": "0.0.1",
+  "description": "liquid component scaffold",
+  "primary": {
+    "path": "lib-jam.liquid",
+    "hash": "be3af1d44b051a26b203c647cdfdd634"
+  },
+  "files": [
+    {
+      "src": "components/lib-jam/lib-jam.liquid",
+      "destDir": "snippets"
+    },
+    {
+      "src": "components/lib-jam/lib-jam.css",
+      "destDir": "assets"
+    }
+  ],
+  "assets": {
+    "js": [
+      "lib-jam.js"
+    ],
+    "css": [
+      "lib-jam.css"
+    ]
+  },
+  "props": [],
+  "dependencies": [],
+  "scope": [],
+  "registry": {
+    "createdAt": "2026-01-29T22:30:10.808Z",
+    "hash": "be3af1d44b051a26b203c647cdfdd634"
+  },
+  "build": {
+    "lastAuditAt": ""
+  }
+}

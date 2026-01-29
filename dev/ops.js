@@ -72,14 +72,28 @@ async function addToComponentRegistry(name, type, description) {
   if(!registryData) return false;
   const { baseName, libName } = normalizeNames(name);
   const typeLabel = (type === 'liquid') ? 'snippet-component' : 'web-component';
-  const files = (type === 'liquid')
-    ? [
-        { src: `components/${libName}.css`, destDir: 'assets' },
-        { src: `components/${libName}.liquid`, destDir: 'snippets' }
-      ]
-    : [
-        { src: `components/${libName}.js`, destDir: 'assets' }
-      ];
+  let files = [];
+  if(type === 'liquid') {
+    files = [
+      { src: `components/${libName}/${libName}.liquid`, destDir: 'snippets' }
+    ];
+    const cssPath = path.join(libRoot, 'components', libName, `${libName}.css`);
+    if(fs.existsSync(cssPath)) {
+      files.unshift({ src: `components/${libName}/${libName}.css`, destDir: 'assets' });
+    };
+    const jsPath = path.join(libRoot, 'components', libName, `${libName}.js`);
+    if(fs.existsSync(jsPath)) {
+      files.push({ src: `components/${libName}/${libName}.js`, destDir: 'assets' });
+    };
+  } else {
+    files = [
+      { src: `components/${libName}/${libName}.js`, destDir: 'assets' }
+    ];
+    const cssPath = path.join(libRoot, 'components', libName, `${libName}.css`);
+    if(fs.existsSync(cssPath)) {
+      files.push({ src: `components/${libName}/${libName}.css`, destDir: 'assets' });
+    };
+  };
   const primaryFilePath = resolvePrimaryFilePath(libName, baseName, type);
   const hash = primaryFilePath ? await generateHash(primaryFilePath) : null;
   const now = new Date().toISOString();

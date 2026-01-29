@@ -1,14 +1,14 @@
 /**
-* @component: {{LIB_NAME}}
+* @component: lib-foxiness
  * @type: web-component
  * @scope: {{SCOPE}}
- * @docs: Add documentation for {{PASCAL_NAME}} here.
+ * @docs: Add documentation for LibFoxiness here.
  * @dependencies: []
  */
 
-// lib-{{LIB_NAME}}.js (Light DOM)
-export class {{PASCAL_NAME}} extends HTMLElement {
-  static get is() { return '{{LIB_NAME}}'; }
+// lib-lib-foxiness.js (Light DOM)
+export class LibFoxiness extends HTMLElement {
+  static get is() { return 'lib-foxiness'; }
   
   // These are the "Props" your Registry/In-situ docs will scrape
   static get props() { 
@@ -20,25 +20,25 @@ export class {{PASCAL_NAME}} extends HTMLElement {
   };
 
   static get observedAttributes() { 
-    return Object.keys({{PASCAL_NAME}}.props); 
+    return Object.keys(LibFoxiness.props); 
   };
 
   connectedCallback() {
 
     if(this._initialized) return;
     this._initialized = true;
-    this.classList.add('lib-{{KEBAB_NAME}}');
+    this.classList.add('lib-foxiness');
 
     // Initial attribute check
     if(!this.hasAttribute('aria-label')) {
-      this.setAttribute('aria-label', 'Lib {{PASCAL_NAME}}');
+      this.setAttribute('aria-label', 'Lib LibFoxiness');
     };
 
     // "Lego" Root Construction
-    let root = this.querySelector('.lib-{{KEBAB_NAME}}__root');
+    let root = this.querySelector('.lib-foxiness__root');
     if(!root) {
       root = document.createElement('div');
-      root.className = 'lib-{{KEBAB_NAME}}__root';
+      root.className = 'lib-foxiness__root';
       root.setAttribute('role', 'region');
       const slot = document.createElement('slot');
       root.appendChild(slot);
@@ -48,7 +48,7 @@ export class {{PASCAL_NAME}} extends HTMLElement {
   };
 
   attributeChangedCallback(name, _oldVal, newVal) {
-    const root = this.querySelector('.lib-{{KEBAB_NAME}}__root');
+    const root = this.querySelector('.lib-foxiness__root');
     if(root && name === 'aria-label') {
       root.setAttribute('aria-label', newVal || '');
     };
@@ -57,6 +57,6 @@ export class {{PASCAL_NAME}} extends HTMLElement {
 };
 
 // Safe Registry Handshake
-if (!customElements.get({{PASCAL_NAME}}.is)) {
-  customElements.define({{PASCAL_NAME}}.is, {{PASCAL_NAME}});
+if (!customElements.get(LibFoxiness.is)) {
+  customElements.define(LibFoxiness.is, LibFoxiness);
 }

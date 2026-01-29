@@ -4,7 +4,11 @@ const path = require('path');
 module.exports = function (componentString, contextString) {
 
   const components = componentString
-    ? componentString.split(/[, ]+/).map(c => c.trim()).filter(Boolean)
+    ? componentString
+        .split(/[, ]+/)
+        .map(c => c.trim())
+        .filter(Boolean)
+        .map(c => c.startsWith('lib-') ? c : `lib-${c}`)
     : [];
 
   if(components.length < 1) console.log('No components specified, starting with empty preview.');
@@ -25,12 +29,12 @@ module.exports = function (componentString, contextString) {
 
     if(entry.files && entry.files.some(f => f.src.endsWith('.css'))) {
       const cssFile = entry.files.find(f => f.src.endsWith('.css'));
-      cssLinks += `<link rel="stylesheet" href="/${cssFile.src}">\n`;
+      cssLinks += `<link rel="stylesheet" href="${cssFile.src}">\n`;
     };
 
     if(entry.files && entry.files.some(f => f.src.endsWith('.js'))) {
       const jsFile = entry.files.find(f => f.src.endsWith('.js'));
-      jsScripts += `<script src="/${jsFile.src}"></script>\n`;
+      jsScripts += `<script src="../${jsFile.src}"></script>\n`;
     };
 
     let props = '';

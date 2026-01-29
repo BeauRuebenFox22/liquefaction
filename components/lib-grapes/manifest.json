@@ -1,0 +1,35 @@
+{
+  "name": "lib-grapes",
+  "type": "web-component",
+  "version": "0.2.0",
+  "description": "javascript component scaffold",
+  "primary": {
+    "path": "lib-grapes.js",
+    "hash": "5724b16dfd90eaeb10ded6ce7c8bd0a5"
+  },
+  "files": [
+    {
+      "src": "components/lib-grapes/lib-grapes.js",
+      "destDir": "assets"
+    },
+    {
+      "src": "components/lib-grapes/lib-grapes.css",
+      "destDir": "assets"
+    }
+  ],
+  "assets": {
+    "css": [
+      "lib-grapes.css"
+    ]
+  },
+  "props": [],
+  "dependencies": [],
+  "scope": [],
+  "registry": {
+    "createdAt": "2026-01-29T22:48:46.927Z",
+    "hash": "5724b16dfd90eaeb10ded6ce7c8bd0a5"
+  },
+  "build": {
+    "lastAuditAt": "2026-01-29T22:56:53.309Z"
+  }
+}

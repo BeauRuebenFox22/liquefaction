@@ -51,17 +51,25 @@ const PORT = 3000;
 const BS_PORT = 3001;
 
 const { spawn } = require('child_process');
-const tailwind = spawn('npx', [
-  'tailwindcss',
-  '-i', './src/input.css',
-  '-o', './dist/output.css',
-  '--watch'
-], { 
-  shell: true,
-  cwd: __dirname 
-});
+function startTailwind() {
+  console.log(':rocket: Starting Tailwind CSS Watcher...');
+  const tailwind = spawn('npx', [
+    'tailwindcss',
+    '-i', './src/input.css',
+    '-o', './dist/output.css',
+    '--watch'
+  ], {
+    shell: true,
+    stdio: 'inherit', 
+    cwd: path.resolve(__dirname, '../backend') 
+  });
+  tailwind.on('error', (err) => {
+    console.error(':x: Tailwind failed to start:', err.message);
+  });
+  process.on('exit', () => tailwind.kill());
+};
 
-tailwind.stdout.on('data', (data) => console.log(`[Tailwind]: ${data}`));
+startTailwind();
 
 app.listen(PORT, () => {
   const url = `http://localhost:${PORT}`;

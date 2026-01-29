@@ -37,7 +37,7 @@ async function addCssAsset(componentName, manifest, manifestPath) {
   manifest.assets.css = Array.isArray(manifest.assets.css) ? manifest.assets.css : [];
   if(!manifest.assets.css.includes(cssName)) manifest.assets.css.push(cssName);
   manifest.files = Array.isArray(manifest.files) ? manifest.files : [];
-  const fileEntry = { src: `components/${cssName}`, destDir: 'assets' };
+  const fileEntry = { src: `components/${componentName}/${cssName}`, destDir: 'assets' };
   if(!manifest.files.find(f => f.src === fileEntry.src)) manifest.files.push(fileEntry);
   await fs.writeJson(manifestPath, manifest, { spaces: 2 });
   console.log(`Created CSS asset and updated manifest at ${manifestPath}`);
@@ -56,7 +56,7 @@ async function addJsAsset(componentName, manifest, manifestPath) {
   manifest.assets.js = Array.isArray(manifest.assets.js) ? manifest.assets.js : [];
   if(!manifest.assets.js.includes(jsName)) manifest.assets.js.push(jsName);
   manifest.files = Array.isArray(manifest.files) ? manifest.files : [];
-  const fileEntry = { src: `components/${jsName}`, destDir: 'assets' };
+  const fileEntry = { src: `components/${componentName}/${jsName}`, destDir: 'assets' };
   if(!manifest.files.find(f => f.src === fileEntry.src)) manifest.files.push(fileEntry);
   await fs.writeJson(manifestPath, manifest, { spaces: 2 });
   console.log(`Created JS asset and updated manifest at ${manifestPath}`);
@@ -97,7 +97,7 @@ module.exports = async function assetsAdd(name, options = {}) {
           const entry = registry[compName];
           const files = Array.isArray(entry.files) ? entry.files.slice() : [];
           const assetName = `${compName}.${typeChoice}`; // e.g., lib-button.css
-          const regFile = { src: `components/${assetName}`, destDir: 'assets' };
+          const regFile = { src: `components/${compName}/${assetName}`, destDir: 'assets' };
           if(!files.find(f => f.src === regFile.src)) files.push(regFile);
           await ops.updateComponentRegistry(compName, { files });
           console.log(`Registry files updated for ${compName}.`);

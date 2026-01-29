@@ -1,0 +1,27 @@
+{
+  "name": "lib-foxiness",
+  "type": "web-component",
+  "version": "0.0.1",
+  "description": "javascript component scaffold",
+  "primary": {
+    "path": "lib-foxiness.js",
+    "hash": "ca60ef5c45d934c7c4d02ffc9479d2e5"
+  },
+  "files": [
+    {
+      "src": "components/lib-foxiness/lib-foxiness.js",
+      "destDir": "assets"
+    }
+  ],
+  "assets": {},
+  "props": [],
+  "dependencies": [],
+  "scope": [],
+  "registry": {
+    "createdAt": "2026-01-29T23:08:38.154Z",
+    "hash": "ca60ef5c45d934c7c4d02ffc9479d2e5"
+  },
+  "build": {
+    "lastAuditAt": ""
+  }
+}

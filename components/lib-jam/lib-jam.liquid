@@ -1,0 +1,25 @@
+{%- comment -%}
+Component: lib-jam
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _jam_content: string (required)
+- _aria_label: string (optional)
+- _jam_id: string (optional)
+
+Scope (theme contexts):
+- @scope= product, collection
+
+Docs (inline prop descriptions):
+- @prop _jam_content: Describe the main content
+- @prop _aria_label: Accessible label text
+{%- endcomment -%}
+
+{%- assign __aria = _aria_label | default: _jam_content | default: 'LibJam component' -%}
+<div class="lib-jam" data-lib="jam" role="region" aria-label="{{ __aria }}">
+  {%- if _jam_content -%}
+    <div class="lib-jam__content">{{ _jam_content }}</div>
+  {%- else -%}
+    <div class="lib-jam__content lib-jam__content--empty" aria-hidden="true"><!-- empty --></div>
+  {%- endif -%}
+</div>

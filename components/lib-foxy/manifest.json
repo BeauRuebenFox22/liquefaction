@@ -1,15 +1,15 @@
 {
   "name": "lib-foxy",
   "type": "snippet-component",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "liquid component scaffold",
   "primary": {
     "path": "lib-foxy.liquid",
-    "hash": "bc70a7328ae225b23c73b34fd1150e77"
+    "hash": "f0c308c5423809b84b89d08deb753cb7"
   },
   "files": [
     {
-      "src": "components/lib-foxy.css",
+      "src": "components/lib-foxy/lib-foxy.css",
       "destDir": "assets"
     },
     {
@@ -35,27 +35,36 @@
     {
       "name": "_empty",
       "type": "string",
-      "required": false,
-      "description": ""
+      "required": true,
+      "description": "Describe the main content when empty.",
+      "placeholder": "Empty"
     },
     {
       "name": "_test",
       "type": "string",
       "required": false,
-      "description": ""
+      "description": "Test for required flagging."
+    },
+    {
+      "name": "_agile",
+      "type": "string",
+      "required": true,
+      "description": "",
+      "placeholder": "Test for require flag"
     }
   ],
   "dependencies": [
-    "lib-child",
     "lib-button",
     "lib-footer"
   ],
-  "scope": [],
+  "scope": [
+    "all"
+  ],
   "registry": {
     "createdAt": "2026-01-25T18:27:58.726Z",
-    "hash": "bc70a7328ae225b23c73b34fd1150e77"
+    "hash": "f0c308c5423809b84b89d08deb753cb7"
   },
   "build": {
-    "lastAuditAt": "2026-01-25T18:40:05.399Z"
+    "lastAuditAt": "2026-01-29T22:55:03.688Z"
   }
 }

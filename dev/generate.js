@@ -99,9 +99,9 @@ async function scaffoldJavaScriptComponent(dir, libName, baseName, includeCSS) {
     await fs.writeFile(jsPath, tpl || `// ${libName}.js`, 'utf8');
     console.log(`Created: ${jsPath}`);
   }
-  if (includeCSS) {
+  if(includeCSS) {
     const cssPath = path.join(dir, `${libName}.css`);
-    if (await fs.pathExists(cssPath)) {
+    if(await fs.pathExists(cssPath)) {
       console.log(`Skipped: ${cssPath} already exists.`);
     } else {
       const tpl = await renderTemplate('web/style.css', tokens);
@@ -208,12 +208,12 @@ module.exports = async function generateComponent(name, options = {}) {
       },
       files: (type === 'liquid'
         ? [
-            ...(includeCSS ? [{ src: `components/${libName}.css`, destDir: 'assets' }] : []),
-            { src: `components/${libName}.liquid`, destDir: 'snippets' }
+            ...(includeCSS ? [{ src: `components/${libName}/${libName}.css`, destDir: 'assets' }] : []),
+            { src: `components/${libName}/${libName}.liquid`, destDir: 'snippets' }
           ]
         : [
-            { src: `components/${libName}.js`, destDir: 'assets' },
-            ...(includeCSS ? [{ src: `components/${libName}.css`, destDir: 'assets' }] : [])
+            { src: `components/${libName}/${libName}.js`, destDir: 'assets' },
+            ...(includeCSS ? [{ src: `components/${libName}/${libName}.css`, destDir: 'assets' }] : [])
           ]
       ),
       assets: {

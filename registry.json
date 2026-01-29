@@ -253,13 +253,14 @@
   },
   "lib-foxy": {
     "type": "snippet-component",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "liquid component scaffold",
-    "hash": "bc70a7328ae225b23c73b34fd1150e77",
+    "hash": "f0c308c5423809b84b89d08deb753cb7",
     "createdAt": "2026-01-25T18:27:58.733Z",
     "updatedAt": [
       "2026-01-25T18:32:54.460Z",
-      "2026-01-25T18:40:05.408Z"
+      "2026-01-25T18:40:05.408Z",
+      "2026-01-29T22:55:03.697Z"
     ],
     "props": [
       {
@@ -271,85 +272,109 @@
       {
         "name": "_empty",
         "type": "string",
-        "required": false,
-        "description": ""
+        "required": true,
+        "description": "Describe the main content when empty.",
+        "placeholder": "Empty"
       },
       {
         "name": "_test",
         "type": "string",
         "required": false,
-        "description": ""
+        "description": "Test for required flagging."
+      },
+      {
+        "name": "_agile",
+        "type": "string",
+        "required": true,
+        "description": "",
+        "placeholder": "Test for require flag"
       }
     ],
     "files": [
       {
-        "src": "components/lib-foxy.css",
+        "src": "../components/lib-foxy/lib-foxy.css",
         "destDir": "assets"
       },
       {
-        "src": "components/lib-foxy.liquid",
+        "src": "../components/lib-foxy/lib-foxy.liquid",
         "destDir": "snippets"
       }
     ],
     "dependencies": [
-      "lib-child",
       "lib-button",
       "lib-footer"
     ],
-    "scope": []
+    "scope": [
+      "all"
+    ]
   },
-  "lib-cheese": {
+  "lib-jam": {
     "type": "snippet-component",
-    "version": "0.0.4",
+    "version": "0.0.1",
     "description": "liquid component scaffold",
-    "hash": "286109dce25694df8426efcbcedebba4",
-    "createdAt": "2026-01-25T19:01:19.441Z",
+    "hash": "be3af1d44b051a26b203c647cdfdd634",
+    "createdAt": "2026-01-29T22:30:10.816Z",
     "updatedAt": [
-      "2026-01-25T19:04:27.948Z",
-      "2026-01-25T19:06:52.130Z",
-      "2026-01-25T19:11:23.682Z"
+      "2026-01-29T22:31:28.113Z",
+      "2026-01-29T22:53:42.589Z"
     ],
-    "props": [
-      {
-        "name": "_cheese_content",
-        "type": "string",
-        "required": true,
-        "description": "Describe the main content"
-      },
-      {
-        "name": "_empty",
-        "type": "string",
-        "required": true,
-        "description": "Describe the main content when empty",
-        "placeholder": "empty"
-      },
-      {
-        "name": "_test",
-        "type": "string",
-        "required": false,
-        "description": "An optional test flag"
-      }
-    ],
+    "props": [],
     "files": [
       {
-        "src": "components/lib-cheese.css",
+        "src": "components/lib-jam/lib-jam.liquid",
+        "destDir": "snippets"
+      },
+      {
+        "src": "components/lib-jam/lib-jam.js",
         "destDir": "assets"
       },
       {
-        "src": "components/lib-cheese.liquid",
-        "destDir": "snippets"
+        "src": "components/lib-jam/lib-jam.css",
+        "destDir": "assets"
       }
     ],
-    "dependencies": [
-      "lib-header",
-      "lib-footer",
-      "lib-button"
+    "dependencies": [],
+    "scope": []
+  },
+  "lib-grapes": {
+    "type": "web-component",
+    "version": "0.2.0",
+    "description": "javascript component scaffold",
+    "hash": "5724b16dfd90eaeb10ded6ce7c8bd0a5",
+    "createdAt": "2026-01-29T22:48:46.935Z",
+    "updatedAt": [
+      "2026-01-29T22:53:42.578Z",
+      "2026-01-29T22:56:53.315Z"
     ],
-    "scope": [
-      "product",
-      "collection",
-      "search",
-      "cart"
-    ]
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-grapes/lib-grapes.js",
+        "destDir": "assets"
+      },
+      {
+        "src": "components/lib-grapes/lib-grapes.css",
+        "destDir": "assets"
+      }
+    ],
+    "dependencies": [],
+    "scope": []
+  },
+  "lib-foxiness": {
+    "type": "web-component",
+    "version": "0.0.1",
+    "description": "javascript component scaffold",
+    "hash": "",
+    "createdAt": "2026-01-29T23:08:38.161Z",
+    "updatedAt": [],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-foxiness/lib-foxiness.js",
+        "destDir": "assets"
+      }
+    ],
+    "dependencies": [],
+    "scope": []
   }
 }
