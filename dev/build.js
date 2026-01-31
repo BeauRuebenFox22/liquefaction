@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const ops = require('./ops');
 const { extractFromFile } = require('./liquid-extractor');
+const { extract } = require('./js-extractor');
 
 const libRoot = path.resolve(__dirname, '../');
 const componentsDir = path.join(libRoot, 'components');
@@ -50,9 +51,9 @@ function renderProgress(current, total) {
 module.exports = async function buildAudit() {
   try {
     const registry = await ops.getRegistryData();
-    if(!registry) throw new Error('Unable to read registry.json');
+    if(!registry) throw new Error(' Unable to read registry.json');
     const libNames = await listLibNames();
-    console.log(`Auditing ${libNames.length} components...`);
+    console.log(` Auditing ${libNames.length} components...`);
     let processed = 0;
     const requireBump = [];
     const invalidLower = [];
@@ -62,36 +63,53 @@ module.exports = async function buildAudit() {
       const entry = registry[libName];
       const manifest = loadManifest(libName);
       if (!manifest) {
-        console.log(`Manifest missing for ${libName}; skipping.`);
+        console.log(` Manifest missing for ${libName}; skipping.`);
         continue;
       }
+      // --- Begin: Expanded static asset hash check ---
       const primaryRel = manifest && manifest.primary && manifest.primary.path ? manifest.primary.path : null;
       const primaryPath = primaryRel ? path.join(componentsDir, libName, primaryRel) : null;
       if(!primaryPath) {
-        console.log(`Primary file missing for ${libName}; skipping.`);
+        console.log(` Primary file missing for ${libName}; skipping.`);
         continue;
       };
       const currentHash = await ops.generateHash(primaryPath);
       if(!currentHash) {
-        console.log(`Unable to hash ${libName}; skipping.`);
+        console.log(` Unable to hash ${libName}; skipping.`);
         continue;
       };
       const expected = (manifest.registry && manifest.registry.hash) || (manifest.primary && manifest.primary.hash) || '';
       const manifestVersion = manifest.version || '0.0.0';
       const registryVersion = entry && entry.version ? entry.version : '0.0.0';
-      if (currentHash === expected) {
-        console.log(`Component ${libName} synced`);
+
+      // Check static asset file hashes (manifest.files)
+      let filesChanged = false;
+      if(Array.isArray(manifest.files)) {
+        for(let file of manifest.files) {
+          if(!file.hash) continue; // Guard: skip if no hash present
+          const filePath = path.join(libRoot, file.src);
+          if(!(await fs.pathExists(filePath))) continue;
+          const fileCurrentHash = await ops.generateHash(filePath);
+          if(fileCurrentHash && fileCurrentHash !== file.hash) {
+            filesChanged = true;
+            file.hash = fileCurrentHash;
+          }
+        }
+      }
+
+      if (currentHash === expected && !filesChanged) {
+        console.log(` Component ${libName} synced`);
         if (entry && entry.hash !== currentHash) {
           const ok = await ops.updateComponentRegistry(libName, { hash: currentHash });
-          if (ok) console.log(`Registry hash updated for ${libName}`);
+          if (ok) console.log(` Registry hash updated for ${libName}`);
         }
       } else {
         const cmp = semverCompare(manifestVersion, registryVersion);
-        if (cmp === 0) {
-          console.error(`Hash mismatch for ${libName} but version not bumped (v${manifestVersion}). Please bump version.`);
+        if(cmp === 0) {
+          console.error(` Hash mismatch for ${libName} but version not bumped (v${manifestVersion}). Please bump version.`);
           requireBump.push(libName);
         } else if (cmp < 0) {
-          console.error(`Hash mismatch and manifest version (v${manifestVersion}) is lower than registry (v${registryVersion}) for ${libName}.`);
+          console.error(` Hash mismatch and manifest version (v${manifestVersion}) is lower than registry (v${registryVersion}) for ${libName}.`);
           invalidLower.push(libName);
         } else {
           // Accept version bump: write new hashes to manifest and update registry version+hash
@@ -103,36 +121,56 @@ module.exports = async function buildAudit() {
             manifest.registry.hash = currentHash;
             manifest.build = manifest.build || {};
             manifest.build.lastAuditAt = new Date().toISOString();
-            // Extraction: only for Liquid components
-            if (manifest.type === 'snippet-component') {
+
+            // Write updated static asset file hashes to registry as well
+            let filesForRegistry = Array.isArray(manifest.files) ? manifest.files.map(f => ({ ...f })) : [];
+
+            if(manifest.type === 'snippet-component') {
               try {
-                const { props, dependencies, scope } = await extractFromFile(primaryPath);
-                if (Array.isArray(props)) manifest.props = props;
-                if (Array.isArray(dependencies)) manifest.dependencies = dependencies;
-                if (Array.isArray(scope)) manifest.scope = scope;
+                const result = await extractFromFile(primaryPath);
+                manifest.props = Array.isArray(result.props) ? result.props : [];
+                manifest.dependencies = Array.isArray(result.dependencies) ? result.dependencies : [];
+                manifest.scope = Array.isArray(result.scope) ? result.scope : [];
+                if(result.description) manifest.description = result.description;
               } catch (e) {
+                manifest.props = [];
+                manifest.dependencies = [];
+                manifest.scope = [];
                 console.warn(`Extraction skipped for ${libName}: ${e.message}`);
               }
-            }
+            };
+
+            if(manifest.type === 'web-component') {
+              try {
+                const { props, dependencies, scope, docs } = extract(primaryPath);
+                if(Array.isArray(props)) manifest.props = props;
+                if(Array.isArray(dependencies)) manifest.dependencies = dependencies;
+                if(Array.isArray(scope)) manifest.scope = scope;
+                if(manifest.description) manifest.description = docs; 
+              } catch (e) {
+                console.warn(`Extraction skipped for ${libName}: ${e.message}`);
+              };
+            };
             await fs.writeJson(manifestPath, manifest, { spaces: 2 });
-            if (entry) {
-              const updates = { hash: currentHash, version: manifestVersion };
+            if(entry) {
+              const updates = { hash: currentHash, version: manifestVersion, files: filesForRegistry };
               if (manifest.type === 'snippet-component') {
                 updates.props = manifest.props || [];
                 updates.dependencies = manifest.dependencies || [];
                 updates.scope = manifest.scope || [];
               }
               const ok = await ops.updateComponentRegistry(libName, updates);
-              if (ok) console.log(`Accepted version bump for ${libName}; updated registry to v${manifestVersion}.`);
+              if (ok) console.log(` Accepted version bump for ${libName}; updated registry to v${manifestVersion}.`);
             } else {
-              console.log(`Component ${libName} not registered; skipping registry sync.`);
+              console.log(` Component ${libName} not registered; skipping registry sync.`);
             }
           } catch (e) {
-            console.error(`Failed to update manifest/registry for ${libName}: ${e.message}`);
+            console.error(` Failed to update manifest/registry for ${libName}: ${e.message}`);
             requireBump.push(libName);
           }
         }
       }
+      // --- End: Expanded static asset hash check ---
     };
     if (requireBump.length > 0 || invalidLower.length > 0) {
       console.error('Build audit failed. The following component(s) require attention:');

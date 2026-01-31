@@ -1,7 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
 const readline = require('readline');
-
 const libRoot = path.resolve(__dirname, '../');
 const ops = require('./ops');
 const { renderTemplate, toPascalCase } = require('./templates');
@@ -197,6 +196,48 @@ module.exports = async function generateComponent(name, options = {}) {
     const primaryFileName = type === 'liquid' ? `${libName}.liquid` : `${libName}.js`;
     const primaryFullPath = path.join(dir, primaryFileName);
     const initialHash = await ops.generateHash(primaryFullPath);
+    // Build files array with hashes
+    let files = [];
+    if (type === 'liquid') {
+      if (includeCSS) {
+        const cssPath = path.join(dir, `${libName}.css`);
+        let cssHash = '';
+        if (await fs.pathExists(cssPath)) {
+          cssHash = await ops.generateHash(cssPath);
+        }
+        files.push({ src: `components/${libName}/${libName}.css`, destDir: 'assets', hash: cssHash || '' });
+      }
+      const liquidPath = path.join(dir, `${libName}.liquid`);
+      let liquidHash = '';
+      if (await fs.pathExists(liquidPath)) {
+        liquidHash = await ops.generateHash(liquidPath);
+      }
+      files.push({ src: `components/${libName}/${libName}.liquid`, destDir: 'snippets', hash: liquidHash || '' });
+      if (includeJS) {
+        const jsPath = path.join(dir, `${libName}.js`);
+        let jsHash = '';
+        if (await fs.pathExists(jsPath)) {
+          jsHash = await ops.generateHash(jsPath);
+        }
+        files.push({ src: `components/${libName}/${libName}.js`, destDir: 'assets', hash: jsHash || '' });
+      }
+    } else {
+      // javascript component
+      const jsPath = path.join(dir, `${libName}.js`);
+      let jsHash = '';
+      if (await fs.pathExists(jsPath)) {
+        jsHash = await ops.generateHash(jsPath);
+      }
+      files.push({ src: `components/${libName}/${libName}.js`, destDir: 'assets', hash: jsHash || '' });
+      if (includeCSS) {
+        const cssPath = path.join(dir, `${libName}.css`);
+        let cssHash = '';
+        if (await fs.pathExists(cssPath)) {
+          cssHash = await ops.generateHash(cssPath);
+        }
+        files.push({ src: `components/${libName}/${libName}.css`, destDir: 'assets', hash: cssHash || '' });
+      }
+    }
     const manifest = {
       name: libName,
       type: type === 'liquid' ? 'snippet-component' : 'web-component',
@@ -206,16 +247,7 @@ module.exports = async function generateComponent(name, options = {}) {
         path: primaryFileName,
         hash: initialHash || ''
       },
-      files: (type === 'liquid'
-        ? [
-            ...(includeCSS ? [{ src: `components/${libName}/${libName}.css`, destDir: 'assets' }] : []),
-            { src: `components/${libName}/${libName}.liquid`, destDir: 'snippets' }
-          ]
-        : [
-            { src: `components/${libName}/${libName}.js`, destDir: 'assets' },
-            ...(includeCSS ? [{ src: `components/${libName}/${libName}.css`, destDir: 'assets' }] : [])
-          ]
-      ),
+      files,
       assets: {
         ...(includeCSS ? { css: [`${libName}.css`] } : {}),
         ...(includeJS && type === 'liquid' ? { js: [`${libName}.js`] } : {})
@@ -234,7 +266,7 @@ module.exports = async function generateComponent(name, options = {}) {
     await writeManifest(dir, manifest);
     // Update component registry
     try {
-      await ops.addToComponentRegistry(libName, type, `${type} component scaffold`);
+      await ops.addToComponentRegistry(libName, type, `${type} component scaffold`, files);
     } catch (e) {
       console.warn('Registry update skipped:', e.message);
     }

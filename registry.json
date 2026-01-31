@@ -310,15 +310,23 @@
   },
   "lib-jam": {
     "type": "snippet-component",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "liquid component scaffold",
-    "hash": "be3af1d44b051a26b203c647cdfdd634",
+    "hash": "e2bacf14f4799107a44bc61c5b93a2ab",
     "createdAt": "2026-01-29T22:30:10.816Z",
     "updatedAt": [
       "2026-01-29T22:31:28.113Z",
-      "2026-01-29T22:53:42.589Z"
+      "2026-01-29T22:53:42.589Z",
+      "2026-01-30T23:19:35.699Z"
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "_jam_content",
+        "type": "string",
+        "required": false,
+        "description": "Describe the main content"
+      }
+    ],
     "files": [
       {
         "src": "components/lib-jam/lib-jam.liquid",
@@ -334,7 +342,10 @@
       }
     ],
     "dependencies": [],
-    "scope": []
+    "scope": [
+      "product",
+      "collection"
+    ]
   },
   "lib-grapes": {
     "type": "web-component",
@@ -362,16 +373,99 @@
   },
   "lib-foxiness": {
     "type": "web-component",
-    "version": "0.0.1",
+    "version": "0.1.1",
     "description": "javascript component scaffold",
-    "hash": "",
+    "hash": "ccc89652ee3cf755b831d0242e0830b6",
     "createdAt": "2026-01-29T23:08:38.161Z",
-    "updatedAt": [],
+    "updatedAt": [
+      "2026-01-30T22:41:58.761Z",
+      "2026-01-30T22:43:51.409Z",
+      "2026-01-30T22:54:51.497Z",
+      "2026-01-30T22:55:39.516Z",
+      "2026-01-30T23:02:53.181Z",
+      "2026-01-30T23:12:46.899Z"
+    ],
     "props": [],
     "files": [
       {
         "src": "components/lib-foxiness/lib-foxiness.js",
         "destDir": "assets"
+      },
+      {
+        "src": "components/lib-foxiness/lib-foxiness.css",
+        "destDir": "assets"
+      }
+    ],
+    "dependencies": [],
+    "scope": []
+  },
+  "lib-clicker": {
+    "type": "snippet-component",
+    "version": "0.1.0",
+    "description": "liquid component scaffold",
+    "hash": "99b32b4f5482111e958ff7be9dde9446",
+    "createdAt": "2026-01-31T00:26:37.653Z",
+    "updatedAt": [
+      "2026-01-31T00:27:20.190Z"
+    ],
+    "props": [
+      {
+        "name": "_content",
+        "type": "string",
+        "required": true,
+        "description": "Product title to display",
+        "placeholder": "product.title"
+      },
+      {
+        "name": "_classes",
+        "type": "string",
+        "required": true,
+        "description": "Additional classes to add to the component wrapper",
+        "placeholder": "'bg-red-600 p-3 rounded'"
+      },
+      {
+        "name": "_button_id",
+        "type": "string",
+        "required": false,
+        "description": "Optional ID for the button"
+      }
+    ],
+    "files": [
+      {
+        "src": "components/lib-clicker/lib-clicker.css",
+        "destDir": "assets",
+        "hash": "1400e68714456397b1b08bfd62997c23"
+      },
+      {
+        "src": "components/lib-clicker/lib-clicker.liquid",
+        "destDir": "snippets",
+        "hash": "99b32b4f5482111e958ff7be9dde9446"
+      },
+      {
+        "src": "components/lib-clicker/lib-clicker.js",
+        "destDir": "assets",
+        "hash": "4c226a2521a6bdccc1020348c7d320a7"
+      }
+    ],
+    "dependencies": [],
+    "scope": [
+      "product",
+      "collection"
+    ]
+  },
+  "lib-javascript": {
+    "type": "web-component",
+    "version": "0.0.1",
+    "description": "javascript component scaffold",
+    "hash": "",
+    "createdAt": "2026-01-31T00:29:46.734Z",
+    "updatedAt": [],
+    "props": [],
+    "files": [
+      {
+        "src": "components/lib-javascript/lib-javascript.js",
+        "destDir": "assets",
+        "hash": "c8e91ec1657bec2a2a2f65ad0b2b01fd"
       }
     ],
     "dependencies": [],

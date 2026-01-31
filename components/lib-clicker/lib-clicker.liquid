@@ -1,0 +1,30 @@
+{%- comment -%}
+Component: lib-clicker
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _clicker_content: string (required)
+- _aria_label: string (optional)
+- _clicker_id: string (optional)
+
+Description
+- @description: Dummy add to cart button.
+
+Scope (theme contexts):
+- @scope= product, collection
+
+Docs (inline prop descriptions):
+- @prop _content: Product title to display
+- @prop _classes: Additional classes to add to the component wrapper
+- @prop _button_id: Optional ID for the button
+{%- endcomment -%}
+
+{% assign _classes = _classes | default: 'bg-red-600 p-3 rounded' %}
+{% assign _button_id = _button_id %}
+{% assign _content = _content | default: product.title %}
+
+<button {% if _button_id %} id="{{ _button_id }}" {% endif %} class="{{ _classes }}">
+  <span id="test-one" class="lib-clicker">
+    {{ _content }}
+  </span> 
+</button>

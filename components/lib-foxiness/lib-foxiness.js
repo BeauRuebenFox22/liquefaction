@@ -1,9 +1,7 @@
 /**
-* @component: lib-foxiness
- * @type: web-component
- * @scope: {{SCOPE}}
- * @docs: Add documentation for LibFoxiness here.
- * @dependencies: []
+ * @scope: global
+ * @docs: This is to test data extraction for WP's.
+ * @dependencies: [lib-helpers, lib-widgets]
  */
 
 // lib-lib-foxiness.js (Light DOM)
@@ -57,6 +55,6 @@ export class LibFoxiness extends HTMLElement {
 };
 
 // Safe Registry Handshake
-if (!customElements.get(LibFoxiness.is)) {
+if(!customElements.get(LibFoxiness.is)) {
   customElements.define(LibFoxiness.is, LibFoxiness);
-}
+};

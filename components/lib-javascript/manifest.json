@@ -1,0 +1,28 @@
+{
+  "name": "lib-javascript",
+  "type": "web-component",
+  "version": "0.0.1",
+  "description": "javascript component scaffold",
+  "primary": {
+    "path": "lib-javascript.js",
+    "hash": "c8e91ec1657bec2a2a2f65ad0b2b01fd"
+  },
+  "files": [
+    {
+      "src": "components/lib-javascript/lib-javascript.js",
+      "destDir": "assets",
+      "hash": "c8e91ec1657bec2a2a2f65ad0b2b01fd"
+    }
+  ],
+  "assets": {},
+  "props": [],
+  "dependencies": [],
+  "scope": [],
+  "registry": {
+    "createdAt": "2026-01-31T00:29:46.725Z",
+    "hash": "c8e91ec1657bec2a2a2f65ad0b2b01fd"
+  },
+  "build": {
+    "lastAuditAt": ""
+  }
+}

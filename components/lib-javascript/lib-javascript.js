@@ -1,12 +1,12 @@
 /**
  * @scope: {{SCOPE}}
- * @docs: Add documentation for {{PASCAL_NAME}} here.
+ * @docs: Add documentation for LibJavascript here.
  * @dependencies: []
  */
 
-// lib-{{LIB_NAME}}.js (Light DOM)
-export class {{PASCAL_NAME}} extends HTMLElement {
-  static get is() { return '{{LIB_NAME}}'; }
+// lib-lib-javascript.js (Light DOM)
+export class LibJavascript extends HTMLElement {
+  static get is() { return 'lib-javascript'; }
   
   // These are the "Props" your Registry/In-situ docs will scrape
   static get props() { 
@@ -18,25 +18,25 @@ export class {{PASCAL_NAME}} extends HTMLElement {
   };
 
   static get observedAttributes() { 
-    return Object.keys({{PASCAL_NAME}}.props); 
+    return Object.keys(LibJavascript.props); 
   };
 
   connectedCallback() {
 
     if(this._initialized) return;
     this._initialized = true;
-    this.classList.add('lib-{{KEBAB_NAME}}');
+    this.classList.add('lib-javascript');
 
     // Initial attribute check
     if(!this.hasAttribute('aria-label')) {
-      this.setAttribute('aria-label', 'Lib {{PASCAL_NAME}}');
+      this.setAttribute('aria-label', 'Lib LibJavascript');
     };
 
     // "Lego" Root Construction
-    let root = this.querySelector('.lib-{{KEBAB_NAME}}__root');
+    let root = this.querySelector('.lib-javascript__root');
     if(!root) {
       root = document.createElement('div');
-      root.className = 'lib-{{KEBAB_NAME}}__root';
+      root.className = 'lib-javascript__root';
       root.setAttribute('role', 'region');
       const slot = document.createElement('slot');
       root.appendChild(slot);
@@ -46,7 +46,7 @@ export class {{PASCAL_NAME}} extends HTMLElement {
   };
 
   attributeChangedCallback(name, _oldVal, newVal) {
-    const root = this.querySelector('.lib-{{KEBAB_NAME}}__root');
+    const root = this.querySelector('.lib-javascript__root');
     if(root && name === 'aria-label') {
       root.setAttribute('aria-label', newVal || '');
     };
@@ -55,6 +55,6 @@ export class {{PASCAL_NAME}} extends HTMLElement {
 };
 
 // Safe Registry Handshake
-if (!customElements.get({{PASCAL_NAME}}.is)) {
-  customElements.define({{PASCAL_NAME}}.is, {{PASCAL_NAME}});
+if (!customElements.get(LibJavascript.is)) {
+  customElements.define(LibJavascript.is, LibJavascript);
 }
