@@ -2,8 +2,10 @@
 dev/
 lib.cmd
 lib.ps1
+package-lock.json
 .vscode/
 .github/
+.gitignore
 
 # Tests / examples (if added later)
 test/

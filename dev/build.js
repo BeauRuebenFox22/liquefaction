@@ -99,9 +99,11 @@ module.exports = async function buildAudit() {
 
       if (currentHash === expected && !filesChanged) {
         console.log(` Component ${libName} synced`);
-        if (entry && entry.hash !== currentHash) {
+        if (entry) {
           const ok = await ops.updateComponentRegistry(libName, { hash: currentHash });
-          if (ok) console.log(` Registry hash updated for ${libName}`);
+          if (ok) console.log(` Registry hash synchronized for ${libName}`);
+        } else {
+          console.log(` Component ${libName} not registered; skipping registry sync.`);
         }
       } else {
         const cmp = semverCompare(manifestVersion, registryVersion);

@@ -1,6 +1,6 @@
 {
   "name": "@ruebenfox/liquefaction",
-  "version": "1.0.6",
+  "version": "2.0.2",
   "bin": {
     "liq": "./bin/cli.js"
   },
@@ -23,7 +23,6 @@
   "author": "Ruben Kai Fox",
   "license": "ISC",
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.18",
     "browser-sync": "^3.0.4",
     "commander": "^14.0.2",
     "express": "^5.2.1",
@@ -32,7 +31,12 @@
     "open": "^11.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18"
   }
 }
+
+// NOTE, all dependencies can be shifted to devDependencies. 
+// Nothing about this library ever escapes dev mode aside the 
+// components directory.
