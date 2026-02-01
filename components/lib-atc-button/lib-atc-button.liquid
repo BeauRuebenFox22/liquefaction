@@ -1,0 +1,32 @@
+{%- comment -%}
+Component: lib-atc-button
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _atc_button_content: string (required)
+- _aria_label: string (optional)
+- _atc_button_id: string (optional)
+
+Description
+- @description: Basic add to cart button.
+
+Scope (theme contexts):
+- @scope= product, collection
+
+Docs (inline prop descriptions):
+- @prop _content: The button label (e.g. "Add to cart").
+- @prop _id: Optional id for the button.
+- @prop _classes: Additional classes for the button styling.
+{%- endcomment -%}
+
+{% assign _id = _id %}
+{% assign _classes = _classes | default: 'bg-red-600 hover:bg-red-700 text-white font-semibold rounded px-5 py-3 shadow focus:outline-none focus:ring-2 focus:ring-red-400 transition' %}
+{% assign _content = _atc_button_content | default: 'Add to cart' %}
+
+<button
+  {% if _id %}id="{{ _id }}"{% endif %}
+  class="atc-btn {{ _classes }}"
+  type="button"
+  data-lib="atc-button">
+  {{ _content }}
+</button>

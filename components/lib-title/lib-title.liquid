@@ -1,0 +1,28 @@
+{%- comment -%}
+Component: lib-title
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _title_content: string (required)
+- _aria_label: string (optional)
+- _title_id: string (optional)
+
+Description
+- @description: This component, can be used to display any title passed to it.
+
+Scope (theme contexts):
+- @scope= all
+
+Docs (inline prop descriptions):
+- @prop _title_content: The title to display.
+- @prop _classes: The classes used to style the component.
+- @prop _tag_type: The HTML tag type to use for the title (e.g., h1, h2, h3).
+{%- endcomment -%}
+
+{% assign _classes = _classes | default: 'mb-4' %}
+{% assign _title_content = _title_content | default: product.title %}
+{% assign _tag_type = _tag_type | default: 'h3' %}
+
+<{{ _tag_type }} class="{{ _classes }}">
+  <span>{{ _title_content }}</span>
+</{{ _tag_type }}>

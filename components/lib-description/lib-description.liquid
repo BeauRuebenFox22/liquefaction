@@ -1,0 +1,39 @@
+{%- comment -%}
+Component: lib-description
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _description_content: string (required)
+- _aria_label: string (optional)
+- _description_id: string (optional)
+
+Description
+- @description: Describe what this component does.
+
+Scope (theme contexts):
+- @scope= all
+
+Docs (inline prop descriptions):
+- @prop _content: The item description you wish to display.
+- @prop _classes: Additional classes for the description styling.
+- @prop _enable_truncate: Boolean to enable truncation of text.
+- @prop _enable_strip_html: Boolean to enable stripping HTML tags.
+{%- endcomment -%}
+
+{% assign _content = _content | default: 'Some random product description.' %}
+{% assign _classes = _classes | default: 'mb-4' %}
+{% assign _enable_truncate = _enable_truncate %}
+{% assign _enable_strip_html = _enable_strip_html %}
+
+<div class="description-wrapper {{ _classes }}">
+  {% assign description_text = _content %}
+  {% if _enable_strip_html %}
+    {% assign description_text = description_text | strip_html %}
+  {% endif %}
+  {% if _enable_truncate %}
+    {% assign description_text = description_text | truncate: 100 %}
+  {% endif %}
+  <p data-lib="description">
+    {{ description_text }}
+  </p>
+</div>

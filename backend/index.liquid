@@ -5,25 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Component Preview</title>
   <link rel="stylesheet" href="/dist/output.css">
-  <link rel="stylesheet" href="components/lib-clicker/lib-clicker.css">
+  
 </head>
 <body>
-  <h1>Component Preview: lib-clicker</h1>
-  {% render "lib-clicker",
-    _content: product.title,
-    _classes: 'bg-red-600 p-3 rounded',
-    _button_id: '_button_id' 
-  %}
-  <script src="../components/lib-clicker/lib-clicker.js"></script>
+  <h1>Component Preview: lib-tags</h1>
+  {% render "lib-tags",
+      _classes: 'tag-list flex flex-wrap gap-2',
+      _number_of_tags: _number_of_tags,
+      _tags: product.tags %}
+  
   <script id="__bs_script__">document.write("<script async src='/browser-sync/browser-sync-client.js'><\/script>");</script>
 </body>
 </html>
-
-<!-- Kinks --
-
-1. Formatting for snippet props slightly off
-2. When rendering a JS component, a custom tag should be added
-3. When rendering a JS component, the script needs to be added, but we need to bypass trying to add any liquid file
-4. There is a visible ")" in the DOM, need to find where that comes from and remove it
-
--->

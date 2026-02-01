@@ -1,0 +1,57 @@
+{
+  "name": "lib-description",
+  "type": "snippet-component",
+  "version": "1.0.0",
+  "description": "Describe what this component does.",
+  "primary": {
+    "path": "lib-description.liquid",
+    "hash": "5a6a8df310bd9b9307940552be08c281"
+  },
+  "files": [
+    {
+      "src": "components/lib-description/lib-description.liquid",
+      "destDir": "snippets",
+      "hash": "5a6a8df310bd9b9307940552be08c281"
+    }
+  ],
+  "assets": {},
+  "props": [
+    {
+      "name": "_content",
+      "type": "string",
+      "required": true,
+      "description": "The item description you wish to display.",
+      "placeholder": "'Some random product description.'"
+    },
+    {
+      "name": "_classes",
+      "type": "string",
+      "required": true,
+      "description": "Additional classes for the description styling.",
+      "placeholder": "'mb-4'"
+    },
+    {
+      "name": "_enable_truncate",
+      "type": "string",
+      "required": false,
+      "description": "Boolean to enable truncation of text."
+    },
+    {
+      "name": "_enable_strip_html",
+      "type": "string",
+      "required": false,
+      "description": "Boolean to enable stripping HTML tags."
+    }
+  ],
+  "dependencies": [],
+  "scope": [
+    "all"
+  ],
+  "registry": {
+    "createdAt": "2026-02-01T19:39:42.311Z",
+    "hash": "5a6a8df310bd9b9307940552be08c281"
+  },
+  "build": {
+    "lastAuditAt": "2026-02-01T20:36:25.326Z"
+  }
+}

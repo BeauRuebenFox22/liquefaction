@@ -1,6 +1,6 @@
 {
   "name": "@ruebenfox/liquefaction",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "bin": {
     "liq": "./bin/cli.js"
   },
@@ -36,7 +36,3 @@
     "tailwindcss": "^4.1.18"
   }
 }
-
-// NOTE, all dependencies can be shifted to devDependencies. 
-// Nothing about this library ever escapes dev mode aside the 
-// components directory.

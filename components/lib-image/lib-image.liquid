@@ -1,0 +1,39 @@
+{%- comment -%}
+Component: lib-image
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _image_content: string (required)
+- _aria_label: string (optional)
+- _image_id: string (optional)
+
+Description
+- @description: A component for rendering an image.
+
+Scope (theme contexts):
+- @scope= all
+
+Docs (inline prop descriptions):
+- @prop _image: The image to display.
+- @prop _alt_text: The alt text for the image.
+- @prop _classes: Additional classes for the image styling.
+- @prop _width: The width of the image.
+-@prop _height: The height of the image.
+{%- endcomment -%}
+
+{% assign _image = _image | default: '' %}
+{% assign _alt_text = _alt_text | default: '' %}
+{% assign _classes = _classes | default: '' %}
+{% assign _width = _width | default: '500' %}
+{% assign _height = _height | default: '500' %}
+
+<div class="image-container {{ _classes }}" style="width: {{ _width }}px; height: {{ _height }}px;">
+  <img 
+    class="w-full h-full object-cover block"
+    {% if _image %}
+      {% if _image.src %}src="{{ _image.src }}"
+      {% else %}src="{{ _image }}"
+      {% endif %}
+    {% endif %}
+    alt="{{ _alt_text }}" />
+</div>

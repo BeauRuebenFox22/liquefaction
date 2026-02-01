@@ -1,0 +1,35 @@
+{%- comment -%}
+Component: lib-price
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _price_content: string (required)
+- _aria_label: string (optional)
+- _price_id: string (optional)
+
+Description
+- @description: Show a products price.
+
+Scope (theme contexts):
+- @scope= product, collection, search, cart
+
+Docs (inline prop descriptions):
+- @prop _price: The products price to display.
+- @prop _show_compare_at: Whether to show the compare at price.
+- @prop _classes: Whether to show the compare at price.
+{%- endcomment -%}
+
+{% assign _price = _price | default: product.selected_or_first_available_variant.price %}
+{% assign _classes = _classes | default: 'm-4' %}
+{% assign _show_compare_at = _show_compare_at %}
+
+<div class="price-wrap {{ _classes }}">
+  <span>
+    {{ _price | money }}
+  </span>
+  {%- if _show_compare_at and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+    <span class="line-through ml-2">
+      {{ product.selected_or_first_available_variant.compare_at_price | money }}
+    </span>
+  {%- endif -%}
+</div>

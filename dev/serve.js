@@ -40,8 +40,15 @@ module.exports = function (componentString, contextString) {
     let props = '';
     if(entry.props && Array.isArray(entry.props)) {
       props = entry.props
-        .map(p => `  ${p.name}: "${p.placeholder || p.name}"`)
-        .join(',\n    '); 
+        .map(p => {
+          const raw = String(p.placeholder || p.name || '').trim();
+          const isQuoted = raw.startsWith("'") && raw.endsWith("'") || raw.startsWith('"') && raw.endsWith('"');
+          const isVariable = /^[A-Za-z_][A-Za-z0-9_\.]*$/.test(raw);
+          const isPrimitive = /^(true|false|null|\d+(?:\.\d+)?)$/i.test(raw);
+          const value = (isQuoted || isVariable || isPrimitive) ? raw : `'${raw}'`;
+          return `  ${p.name}: ${value}`;
+        })
+        .join(',\n    ');
     };
     renderBlocks += `{% render "${name}"${props ? ',\n    ' + props : ''} %}`;
   });

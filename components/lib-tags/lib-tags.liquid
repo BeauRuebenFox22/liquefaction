@@ -1,0 +1,36 @@
+{%- comment -%}
+Component: lib-tags
+Type: snippet-component
+
+Props (snake_case with leading underscore). Use a default filter to mark required:
+- _tags_content: string (required)
+- _aria_label: string (optional)
+- _tags_id: string (optional)
+
+Description
+- @description: Show the product tags.
+
+Scope (theme contexts):
+- @scope= all
+
+Docs (inline prop descriptions):
+- @prop _number_of_tags: Determine how many tags to show.
+- @prop _classes: Additional classes for the tags styling.
+- @prop _tags: The list of tags to display.
+{%- endcomment -%}
+
+{% assign _classes = _classes | default: 'tag-list flex flex-wrap gap-2' %}
+{% assign _number_of_tags = _number_of_tags %}
+{% assign _tags = _tags | default: product.tags %}
+
+<ul class="{{ _classes }}">
+  {% if _number_of_tags %}
+    {% for tag in _tags | limit: _number_of_tags %}
+      <li>{{ tag }}</li>
+    {% endfor %}
+  {% else %}
+    {% for tag in _tags %}
+      <li>{{ tag }}</li>
+    {% endfor %}
+  {% endif %}
+</ul>
