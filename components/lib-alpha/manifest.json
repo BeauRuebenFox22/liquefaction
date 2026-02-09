@@ -1,24 +1,24 @@
 {
-  "name": "lib-price",
+  "name": "lib-alpha",
   "type": "snippet-component",
-  "version": "4.0.0",
+  "version": "0.0.2",
   "description": "Show a products price.",
   "primary": {
-    "path": "lib-price.liquid",
-    "hash": "38a260348195688cf0a45dff8c73fe8f"
+    "path": "lib-alpha.liquid",
+    "hash": "3f9fbff105cb95633560314fec60e84f"
   },
   "files": [
     {
-      "src": "components/lib-price/lib-price.liquid",
+      "src": "components/lib-alpha/lib-alpha.liquid",
       "destDir": "snippets",
-      "hash": "38a260348195688cf0a45dff8c73fe8f"
+      "hash": "3f9fbff105cb95633560314fec60e84f"
     }
   ],
   "assets": {},
   "props": [
     {
       "name": "_price",
-      "type": "string",
+      "type": "shopify_object",
       "required": true,
       "description": "The products price to display.",
       "placeholder": "product.selected_or_first_available_variant.price"
@@ -28,11 +28,11 @@
       "type": "string",
       "required": true,
       "description": "Whether to show the compare at price.",
-      "placeholder": "'m-4'"
+      "placeholder": "m-4"
     },
     {
       "name": "_show_compare_at",
-      "type": "string",
+      "type": "boolean",
       "required": true,
       "description": "Whether to show the compare at price.",
       "placeholder": "true"
@@ -46,10 +46,10 @@
     "cart"
   ],
   "registry": {
-    "createdAt": "2026-02-01T19:39:01.207Z",
-    "hash": "38a260348195688cf0a45dff8c73fe8f"
+    "createdAt": "2026-02-09T21:52:10.351Z",
+    "hash": "3f9fbff105cb95633560314fec60e84f"
   },
   "build": {
-    "lastAuditAt": "2026-02-02T11:10:33.370Z"
+    "lastAuditAt": "2026-02-09T21:53:55.349Z"
   }
 }

@@ -85,14 +85,34 @@ function derivePropEntries(liquid) {
   // Find all default assignments, including non-string values
   const defaultMap = (function findDefaults(src){
     const map = {};
-    // Match default: ... (string or variable)
+    // Match default: ... in prints and assigns (string, boolean, numbers, Shopify objects, etc.)
     const allDefault = /\{\{-?\s*(_[a-z0-9_]+)\b[^}]*\|\s*default\s*:\s*([^}|]+)[^}]*\}\}/gi;
     const assignDefault = /\{%-?\s*assign\s+(_[a-z0-9_]+)\b[^%]*default\s*:\s*([^%]*)%\}/gi;
     let m;
-    while((m = allDefault.exec(src)) !== null) map[m[1]] = m[2].trim();
-    while((m = assignDefault.exec(src)) !== null) map[m[1]] = m[2].trim();
+    while((m = allDefault.exec(src)) !== null) map[m[1]] = (m[2] || '').trim();
+    while((m = assignDefault.exec(src)) !== null) map[m[1]] = (m[2] || '').trim();
     return map;
   })(liquid);
+
+  function inferTypeFromDefault(expr) {
+    if(!expr) return 'string';
+    const raw = String(expr).trim();
+    const lower = raw.toLowerCase();
+    // Boolean
+    if(lower === 'true' || lower === 'false') return 'boolean';
+    // Number
+    if(/^[0-9]+(?:\.[0-9]+)?$/.test(raw)) return 'number';
+    // Shopify object-like (product.price, collection.title, cart, etc.)
+    if(/^(product|collection|cart|search|variant|line_item|shop|blog|article|customer)\b/i.test(raw)) {
+      return 'shopify_object';
+    }
+    // Quoted string literal
+    if((raw.startsWith("'") && raw.endsWith("'")) || (raw.startsWith('"') && raw.endsWith('"'))) {
+      return 'string';
+    }
+    // Fallback
+    return 'string';
+  };
 
   for(const name of names) {
     const defaultRe = new RegExp(`\\{\\{\\s*${name}\\s*\\|\\s*default\\s*:\\s*(['"])((?:[^\\\\]|\\\\.)*?)\\1\\s*\\}\\}`, 'i');
@@ -103,12 +123,19 @@ function derivePropEntries(liquid) {
       m = liquid.match(defaultPrintSingle) || liquid.match(defaultPrintDouble);
     };
 
-    // Treat as required if any default is present (string or variable)
+    // Treat as required if any default is present (string, boolean, number, or Shopify object)
     let hasDefault = Object.prototype.hasOwnProperty.call(defaultMap, name);
-    let placeholder = hasDefault ? defaultMap[name] : undefined;
+    const rawDefault = hasDefault ? defaultMap[name] : undefined;
+    const propType = inferTypeFromDefault(rawDefault);
+    let placeholder;
+    if(typeof rawDefault === 'string' && rawDefault.length) {
+      const raw = rawDefault.trim();
+      const isQuoted = (raw.startsWith("'") && raw.endsWith("'")) || (raw.startsWith('"') && raw.endsWith('"'));
+      placeholder = isQuoted ? raw.slice(1, -1) : raw;
+    };
     entries.push({
       name,
-      type: 'string',
+      type: propType,
       required: hasDefault,
       description: headerDescriptions[name] || '',
       ...(placeholder ? { placeholder } : {}),

@@ -20,10 +20,11 @@ Docs (inline prop descriptions):
 - @prop _enable_strip_html: Boolean to enable stripping HTML tags.
 {%- endcomment -%}
 
-{% assign _content = _content | default: 'Some random product description.' %}
+{% assign _content = _content | default: product.description %}
 {% assign _classes = _classes | default: 'mb-4' %}
-{% assign _enable_truncate = _enable_truncate %}
-{% assign _enable_strip_html = _enable_strip_html %}
+{% assign _enable_truncate = _enable_truncate | default: true %}
+{% assign _truncate_length = _truncate_length | default: 100 %}
+{% assign _enable_strip_html = _enable_strip_html | default: true %}
 
 <div class="description-wrapper {{ _classes }}">
   {% assign description_text = _content %}
@@ -31,7 +32,7 @@ Docs (inline prop descriptions):
     {% assign description_text = description_text | strip_html %}
   {% endif %}
   {% if _enable_truncate %}
-    {% assign description_text = description_text | truncate: 100 %}
+    {% assign description_text = description_text | truncate: _truncate_length %}
   {% endif %}
   <p data-lib="description">
     {{ description_text }}

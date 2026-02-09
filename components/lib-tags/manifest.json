@@ -1,17 +1,17 @@
 {
   "name": "lib-tags",
   "type": "snippet-component",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Show the product tags.",
   "primary": {
     "path": "lib-tags.liquid",
-    "hash": "a83c3ca036b3a5fad09ee9dab4bbaef8"
+    "hash": "eba86dd5b4d671cca41af6e142ca5c7b"
   },
   "files": [
     {
       "src": "components/lib-tags/lib-tags.liquid",
       "destDir": "snippets",
-      "hash": "a83c3ca036b3a5fad09ee9dab4bbaef8"
+      "hash": "eba86dd5b4d671cca41af6e142ca5c7b"
     }
   ],
   "assets": {},
@@ -21,13 +21,14 @@
       "type": "string",
       "required": true,
       "description": "Additional classes for the tags styling.",
-      "placeholder": "'tag-list flex flex-wrap gap-2'"
+      "placeholder": "'tag-list flex flex-wrap gap-2 mb-2 text-xs text-gray-600'"
     },
     {
       "name": "_number_of_tags",
       "type": "string",
-      "required": false,
-      "description": "Determine how many tags to show."
+      "required": true,
+      "description": "Determine how many tags to show.",
+      "placeholder": "3"
     },
     {
       "name": "_tags",
@@ -43,9 +44,9 @@
   ],
   "registry": {
     "createdAt": "2026-02-01T20:38:27.819Z",
-    "hash": "a83c3ca036b3a5fad09ee9dab4bbaef8"
+    "hash": "eba86dd5b4d671cca41af6e142ca5c7b"
   },
   "build": {
-    "lastAuditAt": "2026-02-01T20:49:37.995Z"
+    "lastAuditAt": "2026-02-02T11:10:09.545Z"
   }
 }

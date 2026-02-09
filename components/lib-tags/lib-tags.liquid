@@ -19,13 +19,14 @@ Docs (inline prop descriptions):
 - @prop _tags: The list of tags to display.
 {%- endcomment -%}
 
-{% assign _classes = _classes | default: 'tag-list flex flex-wrap gap-2' %}
-{% assign _number_of_tags = _number_of_tags %}
+{% assign _classes = _classes | default: 'tag-list flex flex-wrap gap-2 mb-2 text-xs text-gray-600' %}
+{% assign _number_of_tags = _number_of_tags | default: 3 %}
 {% assign _tags = _tags | default: product.tags %}
 
 <ul class="{{ _classes }}">
   {% if _number_of_tags %}
-    {% for tag in _tags | limit: _number_of_tags %}
+    {% assign tag_limit = _number_of_tags | plus: 0 %}
+    {% for tag in _tags limit: tag_limit %}
       <li>{{ tag }}</li>
     {% endfor %}
   {% else %}

@@ -3,7 +3,6 @@ const path = require('path');
 const ops = require('./ops');
 const { extractFromFile } = require('./liquid-extractor');
 const { extract } = require('./js-extractor');
-
 const libRoot = path.resolve(__dirname, '../');
 const componentsDir = path.join(libRoot, 'components');
 

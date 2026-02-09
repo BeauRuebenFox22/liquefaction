@@ -1,17 +1,17 @@
 {
   "name": "lib-image",
   "type": "snippet-component",
-  "version": "2.0.0",
+  "version": "4.0.0",
   "description": "A component for rendering an image.",
   "primary": {
     "path": "lib-image.liquid",
-    "hash": "b09572f3fae5035571451de637535ea5"
+    "hash": "87bd8f070a3fc42161957d506feeab54"
   },
   "files": [
     {
       "src": "components/lib-image/lib-image.liquid",
       "destDir": "snippets",
-      "hash": "b09572f3fae5035571451de637535ea5"
+      "hash": "87bd8f070a3fc42161957d506feeab54"
     }
   ],
   "assets": {},
@@ -21,35 +21,35 @@
       "type": "string",
       "required": true,
       "description": "The image to display.",
-      "placeholder": "''"
+      "placeholder": "product.featured_image | image_url: width: _width, height: _height"
     },
     {
       "name": "_alt_text",
       "type": "string",
       "required": true,
       "description": "The alt text for the image.",
-      "placeholder": "''"
+      "placeholder": "product.title"
     },
     {
       "name": "_classes",
       "type": "string",
       "required": true,
       "description": "Additional classes for the image styling.",
-      "placeholder": "''"
+      "placeholder": "'w-full aspect-square object-cover rounded-md mb-2'"
     },
     {
       "name": "_width",
       "type": "string",
       "required": true,
       "description": "The width of the image.",
-      "placeholder": "'500'"
+      "placeholder": "250"
     },
     {
       "name": "_height",
       "type": "string",
       "required": true,
       "description": "The height of the image.",
-      "placeholder": "'500'"
+      "placeholder": "250"
     }
   ],
   "dependencies": [],
@@ -58,9 +58,9 @@
   ],
   "registry": {
     "createdAt": "2026-02-01T19:39:23.849Z",
-    "hash": "b09572f3fae5035571451de637535ea5"
+    "hash": "87bd8f070a3fc42161957d506feeab54"
   },
   "build": {
-    "lastAuditAt": "2026-02-01T20:56:45.214Z"
+    "lastAuditAt": "2026-02-02T11:01:58.315Z"
   }
 }

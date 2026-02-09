@@ -21,19 +21,19 @@ Docs (inline prop descriptions):
 -@prop _height: The height of the image.
 {%- endcomment -%}
 
-{% assign _image = _image | default: '' %}
-{% assign _alt_text = _alt_text | default: '' %}
-{% assign _classes = _classes | default: '' %}
-{% assign _width = _width | default: '500' %}
-{% assign _height = _height | default: '500' %}
+{% assign _image = _image | default: product.featured_image | image_url: width: _width, height: _height %}
+{% assign _alt_text = _alt_text | default: product.title %}
+{% assign _classes = _classes | default: 'w-full aspect-square object-cover rounded-md mb-2' %}
+{% assign _width = _width | default: 250 %}
+{% assign _height = _height | default: 250 %}
 
 <div class="image-container {{ _classes }}" style="width: {{ _width }}px; height: {{ _height }}px;">
-  <img 
-    class="w-full h-full object-cover block"
-    {% if _image %}
-      {% if _image.src %}src="{{ _image.src }}"
-      {% else %}src="{{ _image }}"
-      {% endif %}
-    {% endif %}
-    alt="{{ _alt_text }}" />
+  {% if _image %}
+    <img 
+      class="w-full h-full object-cover block {{ _classes }}"
+      src="{{ _image }}"
+      width="{{ _width }}"
+      height="{{ _height }}"
+      alt="{{ _alt_text }}" />
+  {% endif %}
 </div>
